@@ -1,0 +1,43 @@
+<div class="container mt-3">
+    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-md-10">
+                    <textarea
+                        class="form-control"
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                        placeholder="Type a prompt"
+                        formControlName="message"
+                    ></textarea>
+                </div>
+                <div class="col-md-2">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="chatForm.invalid"
+                    >
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mb-3">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+              @for (message of messages; track $index) {
+                <p [ngClass]="{'text-start': message.sended, 'text-end': !message.sended}">
+                    {{ message.message }}
+                </p>
+              }
+              @if (isProcessing) {
+                <div class="spinner-grow float-end" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              }
+            </div>
+        </div>
+    </div>
+</div>
