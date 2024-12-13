@@ -1,0 +1,17 @@
+.messages-container {
+  max-height: 30rem; /* Limita la altura de la sección de mensajes */
+  overflow-y: auto;  /* Permite el desplazamiento vertical */
+}
+
+.text-start {
+  text-align: left;
+}
+
+.text-end {
+  text-align: right;
+}
+
+textarea {
+  width: 100%; /* Asegura que el campo de texto ocupe todo el ancho disponible */
+  resize: none; /* Desactiva la opción de redimensionar */
+}

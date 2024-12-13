@@ -7,8 +7,10 @@ interface PedagogicalProcess {
 }
 
 export interface IAiResponse {
+  code: string;
+  plan: string;
   date: string;
-  unit: number;
+  unit: string;
   grade: string;
   area: string;
   thematicAxis: string;
@@ -22,30 +24,48 @@ export interface IAiResponse {
   };
   complementaryAdjustments: string;
   pedagogicalProcess: PedagogicalProcess;
+  resources: string[];
+  observations: string;
 }
 
 export const exampleLesson = JSON.stringify({
-  date: 'octubre 17, 2024',
-  unit: 1,
-  grade: 'Comprensión Lectora',
-  area: 'Comprensión Lectora',
-  thematicAxis: 'Comprensión Lectora',
-  estimatedTime: '60 minutos',
-  actualTime: '55 minutos',
+  code: '',
+  plan: '001', // Número de planilla agregado
+  date: '', // Fecha de la planeación
+  unit: '', // Unidad
+  grade: '', // Grado
+  area: '', // Área de la clase
+  thematicAxis: '', // Eje temático
+  estimatedTime: '', // Tiempo estimado
+  actualTime: '', // Tiempo real
   achievement:
-    'El estudiante será capaz de comprender y explicar el tema de la lectura.',
+    '',
   competencies: {
-    argumentative: 'Desarrollar habilidades argumentativas',
-    interpretative: 'Interpretar textos de manera crítica',
-    propositional: 'Proponer soluciones o ideas',
+    argumentative: '',
+    interpretative: '',
+    propositional: '',
   },
-  complementaryAdjustments: 'Adaptaciones para necesidades particulares',
+  complementaryAdjustments:
+    '',
   pedagogicalProcess: {
-    motivation: 'La docente revisa los compromisos de la clase anterior.',
-    priorKnowledgeExploration: 'Realización de dinámicas',
-    confrontation: 'Preguntar a los estudiantes si conocen sobre el tema.',
-    activity: 'Explicación del tema y conceptualización.',
+    motivation:
+      '',
+    priorKnowledgeExploration:
+      '',
+    confrontation:
+      '',
+    activity:
+      '',
     evaluation:
-      'En clase: Los estudiantes transcribirán el concepto. En casa: colorear los dibujos.',
+      '',
   },
+  resources: [
+    'Tablero',
+    'Cuadernos',
+    'Lápices de colores',
+    'Marcadores',
+    'Material didáctico visual',
+  ],
+  observations:
+    'Asegúrese de que todos los estudiantes participen activamente en la clase y realice ajustes si es necesario.',
 });

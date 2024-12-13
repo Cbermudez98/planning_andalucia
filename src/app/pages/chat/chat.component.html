@@ -1,43 +1,70 @@
 <div class="container mt-3">
-    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-        <div class="mb-3">
-            <div class="row">
-                <div class="col-md-10">
-                    <textarea
-                        class="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows="3"
-                        placeholder="Type a prompt"
-                        formControlName="message"
-                    ></textarea>
-                </div>
-                <div class="col-md-2">
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        [disabled]="chatForm.invalid"
-                    >
-                        Send
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
-
+  <!-- Formulario de envío de mensajes -->
+  <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
     <div class="mb-3">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-              @for (message of messages; track $index) {
-                <p [ngClass]="{'text-start': message.sended, 'text-end': !message.sended}">
-                    {{ message.message }}
-                </p>
-              }
-              @if (isProcessing) {
-                <div class="spinner-grow float-end" role="status">
-                  <span class="visually-hidden">Loading...</span>
+      <div class="row">
+        <!-- Columna de los mensajes recibidos (a la izquierda) -->
+        <div class="col-md-8" style="min-height: 42rem;">
+          <div
+            class="messages-container"
+            style="max-height: 42rem; overflow-y: auto;"
+            #messagesContainer
+          >
+            <!-- Mostrar los mensajes recibidos -->
+            <div *ngFor="let message of messages;">
+              <!-- Mensajes de ChatGPT (a la izquierda) -->
+              <div class="row mb-2" *ngIf="!message.sended">
+                <div class="col-12">
+                  <p class="text-start bg-light p-2 rounded">
+                    <span>ChatGPT: </span>
+                    <app-table [value]="message.message"></app-table>
+                  </p>
                 </div>
-              }
+              </div>
             </div>
+
+            <!-- Spinner de carga -->
+            <div *ngIf="isProcessing">
+              <div class="spinner-grow float-end" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Columna de la caja de texto (a la derecha) -->
+        <div class="col-md-4 d-flex flex-column justify-content-end">
+          <!-- Mensajes enviados por el usuario (a la derecha) -->
+          <div *ngFor="let message of messages;">
+            <div class="row mb-2" *ngIf="message.sended">
+              <div class="col-12">
+                <p class="text-end bg-light p-2 rounded">
+                  <span>Ilian: </span>
+                  {{ message.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Campo de texto y botón -->
+          <div class="input-group">
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              placeholder="Type a prompt"
+              formControlName="message"
+            ></textarea>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="chatForm.invalid"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+  </form>
 </div>

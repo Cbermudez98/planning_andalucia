@@ -10,6 +10,7 @@ export class OpenAiService {
     apiKey: environment.OPEN_AI.API_KEY,
     organization: environment.OPEN_AI.ORGANIZATION,
     project: environment.OPEN_AI.PROJECT,
+    dangerouslyAllowBrowser: true,
   });
 
   constructor() {}
@@ -29,8 +30,6 @@ export class OpenAiService {
     for await (const chunk of stream) {
       message += chunk.choices[0]?.delta?.content || '';
     }
-    console.log(message);
-
     return message;
   }
 }

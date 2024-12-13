@@ -1,0 +1,145 @@
+<div class="container mt-5 text-center">
+    <h3 class="text-center">CENTRO EDUCATIVO ANDALUCÍA</h3>
+    <h4 class="text-center mb-4">PLANEACIONES DE CLASE</h4>
+
+    <!-- Tabla Principal -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th
+                    colspan="2"
+                    class="text-center"
+                >
+                    {{ 'CÓDIGO: '+ data.code }}
+                </th>
+                <th
+                    colspan="2"
+                    class="text-center"
+                >
+                    {{'PLANILLA:' + data.plan}}
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">FECHA</th>
+                <th class="text-center">UNIDAD</th>
+                <th class="text-center">GRADO</th>
+                <th class="text-center">ÁREA</th>
+                <th class="text-center">EJE TEMÁTICO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">{{ data.date }}</td>
+                <td class="text-center">{{ data.unit }}</td>
+                <td class="text-center">{{ data.grade + "°" }}</td>
+                <td class="text-center">{{ data.area }}</td>
+                <td class="text-center">{{ data.thematicAxis }}</td>
+            </tr>
+            <tr>
+                <th class="text-center">TIEMPO PROBABLE</th>
+                <th class="text-center">TIEMPO REAL</th>
+                <td class="text-center">60 min</td>
+                <td class="text-center">55 min</td>
+            </tr>
+            <tr>
+                <td
+                    colspan="2"
+                    class="text-center"
+                >
+                    LOGRO:
+                </td>
+                <td colspan="3">{{ data.achievement }}</td>
+            </tr>
+            <tr>
+                <td
+                    colspan="2"
+                    class="text-center"
+                >
+                    COMPETENCIAS:
+                </td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="text-center">Argumentativa:</td>
+                <td colspan="3">{{ data.competencies.argumentative }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Interpretativa:</td>
+                <td colspan="3">{{ data.competencies.interpretative }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Propositiva:</td>
+                <td colspan="3">{{ data.competencies.propositional }}</td>
+            </tr>
+            <tr>
+                <th
+                    colspan="5"
+                    class="text-center"
+                >
+                    AJUSTES COMPLEMENTARIOS POR NECESIDADES PARTICULARES
+                </th>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <th
+                    colspan="5"
+                    class="text-center"
+                >
+                    PROCESO PEDAGÓGICO
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">MOTIVACIÓN</th>
+                <td colspan="4">
+                    {{ data.pedagogicalProcess.motivation }}
+                </td>
+            </tr>
+            <tr>
+                <th class="text-center">EXPLORACIÓN SABERES PREVIOS</th>
+                <td colspan="4">
+                    {{ data.pedagogicalProcess.priorKnowledgeExploration }}
+                </td>
+            </tr>
+            <tr>
+                <th class="text-center">CONFRONTACIÓN</th>
+                <td colspan="4">
+                    {{ data.pedagogicalProcess.confrontation }}
+                </td>
+            </tr>
+            <tr>
+                <th class="text-center">ACTIVIDAD</th>
+                <td colspan="4">{{ data.pedagogicalProcess.activity }}</td>
+            </tr>
+            <tr>
+                <th class="text-center">EVALUACIÓN</th>
+                <td colspan="4">
+                    {{ data.pedagogicalProcess.evaluation }}
+                </td>
+            </tr>
+            <tr>
+                <th
+                    colspan="5"
+                    class="text-center"
+                >
+                    RECURSOS
+                </th>
+            </tr>
+            <tr>
+                <td colspan="5">{{ data.resources.join(", ") }}</td>
+            </tr>
+            <tr>
+                <th
+                    colspan="5"
+                    class="text-center"
+                >
+                    OBSERVACIONES
+                </th>
+            </tr>
+            <tr>
+                <td colspan="5">{{ data.observations }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
