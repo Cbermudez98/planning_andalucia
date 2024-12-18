@@ -1,0 +1,13 @@
+<label
+    [for]="label"
+    class="form-label"
+>
+    {{ label | titlecase }}
+</label>
+<input
+    [type]="type"
+    class="form-control"
+    [id]="label"
+    [name]="label"
+    (keyup)="setData($event)"
+>

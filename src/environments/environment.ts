@@ -6,4 +6,8 @@ export const environment = {
     MODEL: '',
     ROLE: '',
   },
+  SUPABASE: {
+    PROJECT_URL: '',
+    API_KEY: '',
+  },
 };

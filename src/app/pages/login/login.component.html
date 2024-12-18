@@ -1,0 +1,25 @@
+<div class="form-container">
+  <!-- Login Form -->
+   @if(isLogin) {
+     <div class="form-content">
+       <h2 class="text-center">Login</h2>
+       <form>
+         <div class="mb-3">
+           <app-input label="email" type="email"></app-input>
+         </div>
+         <div class="mb-3">
+          <app-input label="password" type="password"></app-input>
+         </div>
+         <button type="submit" class="btn login-btn">Login</button>
+       </form>
+       <div class="text-center mt-3">
+         <span class="link-text" (click)="toggleForm()">Don't have an account? <span class="highlight">Sign Up</span></span>
+       </div>
+     </div>
+   }
+
+  <!-- Sign Up Form -->
+   @if(!isLogin) {
+     <app-register (toggle)="toggleForm()"></app-register>
+   }
+</div>

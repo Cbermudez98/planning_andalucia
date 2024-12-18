@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewChecked, Component, ViewChild } from '@angular/core';
 import {
   FormControl,
@@ -17,7 +16,7 @@ interface IMessage {
 
 @Component({
   selector: 'app-chat',
-  imports: [ReactiveFormsModule, CommonModule, TableComponent],
+  imports: [ReactiveFormsModule, TableComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
