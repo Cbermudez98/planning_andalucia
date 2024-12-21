@@ -4,6 +4,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { OpenAiService } from './shared/shared';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,4 +16,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'planeaciones_andalucia';
+
+  constructor(private readonly authService: AuthService) {
+    this.authService.onAuthStatChange();
+  }
 }

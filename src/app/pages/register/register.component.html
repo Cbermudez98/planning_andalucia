@@ -8,13 +8,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <app-input
-                        label="name"
+                        label="nombre"
                         [control]="name"
                     ></app-input>
                 </div>
                 <div class="col-md-6">
                     <app-input
-                        label="last name"
+                        label="apellido"
                         [control]="last_name
                     "
                     ></app-input>
@@ -23,14 +23,14 @@
         </div>
         <div class="mb-3">
             <app-input
-                label="email"
+                label="correo"
                 type="email"
                 [control]="email"
             ></app-input>
         </div>
         <div class="mb-3">
             <app-input
-                label="password"
+                label="contraseña"
                 type="password"
                 [control]="password"
             ></app-input>
@@ -40,7 +40,7 @@
             class="btn login-btn"
             [disabled]="registerForm.invalid"
         >
-            Sign Up
+            Registrarse
         </button>
     </form>
     <div class="text-center mt-3">
@@ -48,8 +48,9 @@
             class="link-text"
             (click)="toggleForm()"
         >
-            Already have an account?
-            <span class="highlight">Login</span>
+            ¿Ya tienes una cuenta?
+            <span class="highlight">Inicia sesión</span>
         </span>
+
     </div>
 </div>

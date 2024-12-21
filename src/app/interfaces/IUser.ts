@@ -15,3 +15,5 @@ export interface IUserMetadata {
   name: string;
   last_name: string;
 }
+
+export interface IUserLogin extends Omit<IUser, 'role'> {}

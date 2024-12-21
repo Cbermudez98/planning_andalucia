@@ -3,18 +3,18 @@
    @if(isLogin) {
      <div class="form-content">
        <h2 class="text-center">Login</h2>
-       <form>
+       <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
          <div class="mb-3">
-           <app-input label="email" type="email"></app-input>
+           <app-input [control]="email" label="Correo" type="email"></app-input>
          </div>
          <div class="mb-3">
-          <app-input label="password" type="password"></app-input>
+          <app-input [control]="password" label="Contraseña" type="password"></app-input>
          </div>
-         <button type="submit" class="btn login-btn">Login</button>
+         <button [disabled]="loginForm.invalid" type="submit" class="btn login-btn">Login</button>
        </form>
        <div class="text-center mt-3">
-         <span class="link-text" (click)="toggleForm()">Don't have an account? <span class="highlight">Sign Up</span></span>
-       </div>
+        <span class="link-text" (click)="toggleForm()">¿No tienes una cuenta? <span class="highlight">Regístrate</span></span>
+      </div>
      </div>
    }
 

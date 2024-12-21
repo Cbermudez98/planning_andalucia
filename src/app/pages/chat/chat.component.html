@@ -11,40 +11,43 @@
             #messagesContainer
           >
             <!-- Mostrar los mensajes recibidos -->
-            <div *ngFor="let message of messages;">
-              <!-- Mensajes de ChatGPT (a la izquierda) -->
-              <div class="row mb-2" *ngIf="!message.sended">
-                <div class="col-12">
-                  <p class="text-start bg-light p-2 rounded">
-                    <span>ChatGPT: </span>
-                    <app-table [value]="message.message"></app-table>
-                  </p>
+             @for (message of messages; track $index) {
+              @if(!message.sended) {
+                <div class="row mb-2">
+                  <div class="col-12">
+                    <p class="text-start bg-light p-2 rounded">
+                      <span>ChatGPT: </span>
+                      <app-table [value]="message.message"></app-table>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              }
+             }
 
             <!-- Spinner de carga -->
-            <div *ngIf="isProcessing">
-              <div class="spinner-grow float-end" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
+             @if(isProcessing) {
+               <div class="spinner-grow float-end" role="status">
+                 <span class="visually-hidden">Loading...</span>
+               </div>
+             }
           </div>
         </div>
 
         <!-- Columna de la caja de texto (a la derecha) -->
         <div class="col-md-4 d-flex flex-column justify-content-end">
           <!-- Mensajes enviados por el usuario (a la derecha) -->
-          <div *ngFor="let message of messages;">
-            <div class="row mb-2" *ngIf="message.sended">
-              <div class="col-12">
-                <p class="text-end bg-light p-2 rounded">
-                  <span>Ilian: </span>
-                  {{ message.message }}
-                </p>
+           @for (message of messages; track $index) {
+            @if(message.sended) {
+              <div class="row mb-2" >
+                <div class="col-12">
+                  <p class="text-end bg-light p-2 rounded">
+                    <span>Ilian: </span>
+                    {{ message.message }}
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
+            }
+           }
 
           <!-- Campo de texto y botón -->
           <div class="input-group">
