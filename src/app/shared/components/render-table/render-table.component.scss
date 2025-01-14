@@ -1,0 +1,28 @@
+.custom-table {
+  border-collapse: collapse; /* Cleaner table look */
+  width: 100%; /* Full-width table */
+}
+
+.custom-table thead {
+  background-color: #f8f9fa; /* Light gray background */
+  font-weight: bold;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px; /* Adds spacing */
+  text-align: left; /* Left-aligned text */
+  border: 1px solid #ddd; /* Subtle borders */
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f1f1; /* Highlight on hover */
+}
+
+.custom-table .btn {
+  margin-right: 5px; /* Space between buttons */
+}
+
+.table-responsive {
+  margin-top: 20px; /* Adds spacing above the table */
+}

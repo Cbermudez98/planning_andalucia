@@ -64,4 +64,16 @@ export class AuthService {
       }
     });
   }
+
+  async getCurrentName(): Promise<string> {
+    const auth = await this.isLogin();
+    const { name, last_name } = auth.data.session?.user.user_metadata as any;
+    return `${name} ${last_name}`;
+  }
+
+  async logOut() {
+    await this.supabaseClient.auth.signOut({
+      scope: 'global',
+    });
+  }
 }

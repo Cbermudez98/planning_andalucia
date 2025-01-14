@@ -1,0 +1,50 @@
+.container {
+  max-width: 90%; /* Ajusta el ancho máximo del contenedor */
+  margin: 0 auto; /* Centra el contenedor */
+  padding: 20px;
+  background-color: #f8f9fa; /* Color de fondo suave */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+h3, h4 {
+  color: #343a40; /* Tono oscuro para encabezados */
+  font-weight: bold;
+}
+
+.table {
+  margin-top: 20px; /* Espaciado superior para la tabla */
+  background-color: white; /* Fondo blanco */
+  border: 1px solid #dee2e6; /* Bordes ligeros */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Esconde bordes sobrantes */
+}
+
+.table th {
+  background-color: #007bff; /* Color de fondo para encabezados */
+  color: white; /* Texto blanco */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  padding: 10px;
+}
+
+.table td {
+  padding: 10px;
+  vertical-align: middle; /* Centra verticalmente el contenido */
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6; /* Color de bordes */
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}

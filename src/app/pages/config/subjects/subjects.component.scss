@@ -1,0 +1,20 @@
+.custom-card {
+  max-width: 400px; /* Limits the card width */
+  margin: 20px auto; /* Centers the card */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+.custom-card .card-body {
+  padding: 15px; /* Compact padding */
+}
+
+.custom-card app-input {
+  width: 100%; /* Ensures inputs fit the column */
+}
+
+button.btn-sm {
+  padding: 5px 10px; /* Smaller button size */
+  font-size: 14px; /* Smaller font size */
+}

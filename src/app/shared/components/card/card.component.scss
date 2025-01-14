@@ -1,0 +1,29 @@
+.custom-card {
+  max-width: 350px; /* Limita el ancho de las tarjetas */
+  margin: 15px auto; /* Centradas con espacio */
+  border: 1px solid #ddd; /* Bordes sutiles */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.custom-card .card-body {
+  padding: 20px; /* Espaciado interno */
+}
+
+.custom-card .card-title {
+  font-size: 18px; /* Tamaño del título */
+  font-weight: bold;
+  margin-bottom: 10px; /* Espacio debajo del título */
+  color: #333;
+}
+
+.custom-card .card-text {
+  font-size: 14px; /* Texto más compacto */
+  margin-bottom: 8px; /* Espaciado entre líneas */
+  color: #555;
+}
+
+.custom-card .btn {
+  margin-top: 10px; /* Espaciado superior */
+  font-size: 14px; /* Botón más pequeño */
+}

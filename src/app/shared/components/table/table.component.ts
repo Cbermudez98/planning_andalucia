@@ -10,13 +10,13 @@ import { IAiResponse } from '../../../interfaces/IAiResponse';
 export class TableComponent {
   public data!: IAiResponse;
   @Input() set value(data: string) {
-    console.log(data);
     this.data = JSON.parse(data);
+    console.log(this.data);
     this.handleData();
   }
   constructor() {}
 
   private handleData() {
-    console.log(Object.keys(this.data));
+    // console.log(Object.keys(this.data));
   }
 }

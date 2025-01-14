@@ -16,6 +16,7 @@ export class OpenAiService {
   constructor() {}
 
   async sendRequest(content: string) {
+    console.log('🚀  ~ OpenAiService ~ sendRequest ~ content:', content);
     const stream = await this._openAi.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [

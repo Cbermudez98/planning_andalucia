@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <form>
+        <label for="subjectSelect" class="form-label">Asignatura</label>
+        <select id="subjectSelect" class="form-select" (change)="updateSelection($event)">
+          <option value="">Seleccionar</option>
+          @for (subject of subjects; track $index) {
+            <option value="{{subject.id}}">{{ subject.name }} - {{ subject.grade }}</option>
+          }
+        </select>
+        <button type="button" class="btn btn-outline-primary mt-2" (click)="addNewHistory()">Agregar</button>
+      </form>
+    </div>
+    @if(preview) {
+      <div class="col-md-6">
+        <div class="mt-4">
+          <div class="preview-card custom-card">
+            <div class="card-body">
+              <p><strong>Asignatura: </strong> <span id="previewSubject">{{preview.name}}</span></p>
+              <p><strong>Grado: </strong> <span id="previewGrade">{{preview.grade}}</span></p>
+              <p><strong>Código: </strong> <span id="previewCode">{{preview.code}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    @for (item of history; track $index) {
+      <div class="col-md-3">
+        <app-card [code]="item.subjects.code" [grade]="item.subjects.grade" [name]="item.subjects.name" [id]="item.id"/>
+      </div>
+    }
+  </div>
+</div>

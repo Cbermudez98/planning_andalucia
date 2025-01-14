@@ -4,10 +4,31 @@
 >
     {{ label | titlecase }}
 </label>
-<input
-    [type]="type"
-    class="form-control"
-    [id]="label"
-    [name]="label"
-    (keyup)="setData($event)"
->
+<div class="input-group">
+  <input
+      [type]="isPasswordVisible ? 'text' : type"
+      class="form-control"
+      [id]="label"
+      [name]="label"
+      (keyup)="setData($event)"
+      [value]="control.value"
+      autocomplete="off"
+  >
+  @if(type === "password") {
+    <button
+    type="button"
+    class="btn btn-outline-secondary"
+    (click)="togglePasswordVisibility()"
+  >
+    <i [class]="isPasswordVisible ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+  </button>
+  }
+</div>
+
+@if(error) {
+  <div
+      class="text-danger mt-2"
+  >
+  <small>{{ error }}</small>
+  </div>
+}

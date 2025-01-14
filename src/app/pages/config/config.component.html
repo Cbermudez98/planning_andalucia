@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        @if (show) {
+          <app-subjects (onActionPerformed)="ngOnInit()" [subject]="subjectToUpdate" class="col-md-12"></app-subjects>
+        }
+        <app-render-table
+            [content]="tableTemplate"
+            [data]="subjects"
+        ></app-render-table>
+    </div>
+</div>
+

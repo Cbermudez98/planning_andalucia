@@ -1,10 +1,18 @@
 export { TableComponent } from './components/table/table.component';
 export { InputComponent } from './components/input/input.component';
-
+export { NavbarComponent } from './components/navbar/navbar.component';
+export {
+  RenderTableComponent,
+  ITableContent,
+} from './components/render-table/render-table.component';
+export { CardComponent } from './components/card/card.component';
 export { OpenAiService } from './services/open-ai.service';
 export { SpinnerService } from './services/spinner/spinner.service';
-export { ToastService } from './services/toast/toast.service';
+export { TOAST, ToastService } from './services/toast/toast.service';
 export { StorageService } from './services/storage/storage.service';
+export { QueryService } from './services/query/query.service';
+export { ModalService } from './services/modal/modal.service';
+export { IConfirm, ConfirmService } from './services/confirm/confirm.service';
 
 export { PrettyJsonPipe } from './pipes/pretty-json.pipe';
 

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
 
 export enum TOAST {
-  SHOW = 'show',
+  SHOW = 'secondary',
   ERROR = 'error',
-  WARN = 'warning',
+  WARN = 'warn',
   INFO = 'info',
   SUCCESS = 'success',
+  CONTRACT = 'contrast'
 }
 
 interface IToast {
@@ -19,30 +20,13 @@ interface IToast {
   providedIn: 'root',
 })
 export class ToastService {
-  constructor(private toastr: ToastrService) {}
-
-  private override = {
-    positionClass: 'toast-top-right',
-    timeOut: 3000,
-  };
+  constructor(private toastr: MessageService) {}
 
   show(payload: IToast) {
-    switch (payload.type) {
-      case TOAST.SUCCESS:
-        this.toastr.success(payload.message, payload.title, this.override);
-        break;
-      case TOAST.ERROR:
-        this.toastr.error(payload.message, payload.title, this.override);
-        break;
-      case TOAST.INFO:
-        this.toastr.info(payload.message, payload.title, this.override);
-        break;
-      case TOAST.WARN:
-        this.toastr.warning(payload.message, payload.title, this.override);
-        break;
-      default:
-        this.toastr.show(payload.message, payload.title, this.override);
-        break;
-    }
+    this.toastr.add({
+      severity: payload.type,
+      summary: payload.title,
+      detail: payload.message,
+    });
   }
 }

@@ -1,0 +1,35 @@
+<div class="table-responsive">
+    <table class="table custom-table">
+        <thead>
+            <tr>
+              <th>#</th>
+              @for (header of content.headers; track $index) {
+                <th>{{ header.name | titlecase }}</th>
+              }
+              @if(content.control) {
+                <th>Acciones</th>
+              }
+            </tr>
+        </thead>
+        <tbody>
+          @for (data of dataToRender; track $index) {
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                @for (header of content.headers; track $index) {
+                  <td>{{ data[header.key] }}</td>
+                }
+                @if(content.control) {
+                  <td>
+                    @if(content.control.update) {
+                      <button class="btn btn-sm btn-success" (click)="content.control.update(data)">Actualizar</button>
+                    }
+                    @if(content.control.delete) {
+                      <button class="btn btn-sm btn-danger" (click)="content.control.delete(data)">Eliminar</button>
+                    }
+                  </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,17 +1,92 @@
+/* Contenedor principal del chat */
+.mt-3 {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #ddd; /* Línea sutil */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+  overflow: hidden;
+}
+
+/* Contenedor de los mensajes */
 .messages-container {
-  max-height: 30rem; /* Limita la altura de la sección de mensajes */
-  overflow-y: auto;  /* Permite el desplazamiento vertical */
+  padding: 20px;
+  background-color: #f8f9fa; /* Gris claro */
+  border-right: 1px solid #ddd; /* Línea divisoria */
+}
+
+/* Estilo para mensajes */
+p {
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .text-start {
-  text-align: left;
+  background-color: #ffffff; /* Fondo claro para mensajes recibidos */
+  color: black;
 }
 
 .text-end {
-  text-align: right;
+  background-color: #007bff; /* Fondo azul para mensajes enviados */
+  color: black;
+}
+
+/* Nombres de los participantes */
+p span {
+  font-weight: bold;
+}
+
+/* Spinner */
+.spinner-grow {
+  margin-top: 10px;
+  width: 2rem;
+  height: 2rem;
+  color: #007bff; /* Azul */
+}
+
+/* Caja de texto y botón */
+.input-group {
+  padding: 15px;
+  border-top: 1px solid #ddd; /* Línea divisoria */
+  background-color: #ffffff; /* Fondo blanco */
 }
 
 textarea {
-  width: 100%; /* Asegura que el campo de texto ocupe todo el ancho disponible */
-  resize: none; /* Desactiva la opción de redimensionar */
+  border: 1px solid #ddd; /* Línea sutil */
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  border-color: #007bff; /* Azul al enfoque */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+  margin-left: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+  background-color: #ccc; /* Gris para estado deshabilitado */
+  cursor: not-allowed;
 }

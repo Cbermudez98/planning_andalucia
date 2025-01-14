@@ -1,0 +1,18 @@
+.custom-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  padding: 5px 10px; /* Smaller padding */
+  font-size: 14px; /* Smaller font size */
+  border-radius: 4px; /* Subtle rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-add-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: #fff; /* White text */
+}
+
+.custom-add-btn i {
+  font-size: 16px; /* Slightly larger icon for visibility */
+}

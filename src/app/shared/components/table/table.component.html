@@ -18,6 +18,12 @@
                 >
                     {{'PLANILLA:' + data.plan}}
                 </th>
+                <th
+                    colspan="2"
+                    class="text-center"
+                >
+
+                </th>
             </tr>
             <tr>
                 <th class="text-center">FECHA</th>
@@ -61,15 +67,15 @@
             </tr>
             <tr>
                 <td class="text-center">Argumentativa:</td>
-                <td colspan="3">{{ data.competencies.argumentative }}</td>
+                <td colspan="3">{{ data?.competencies?.argumentative || '' }}</td>
             </tr>
             <tr>
                 <td class="text-center">Interpretativa:</td>
-                <td colspan="3">{{ data.competencies.interpretative }}</td>
+                <td colspan="3">{{ data?.competencies?.interpretative || ''}}</td>
             </tr>
             <tr>
                 <td class="text-center">Propositiva:</td>
-                <td colspan="3">{{ data.competencies.propositional }}</td>
+                <td colspan="3">{{ data?.competencies?.propositional || '' }}</td>
             </tr>
             <tr>
                 <th
@@ -93,29 +99,29 @@
             <tr>
                 <th class="text-center">MOTIVACIÓN</th>
                 <td colspan="4">
-                    {{ data.pedagogicalProcess.motivation }}
+                    {{ data?.pedagogicalProcess?.motivation || '' }}
                 </td>
             </tr>
             <tr>
                 <th class="text-center">EXPLORACIÓN SABERES PREVIOS</th>
                 <td colspan="4">
-                    {{ data.pedagogicalProcess.priorKnowledgeExploration }}
+                    {{ data?.pedagogicalProcess?.priorKnowledgeExploration || '' }}
                 </td>
             </tr>
             <tr>
                 <th class="text-center">CONFRONTACIÓN</th>
                 <td colspan="4">
-                    {{ data.pedagogicalProcess.confrontation }}
+                    {{ data?.pedagogicalProcess?.confrontation || '' }}
                 </td>
             </tr>
             <tr>
                 <th class="text-center">ACTIVIDAD</th>
-                <td colspan="4">{{ data.pedagogicalProcess.activity }}</td>
+                <td colspan="4">{{ data?.pedagogicalProcess?.activity || ''}}</td>
             </tr>
             <tr>
                 <th class="text-center">EVALUACIÓN</th>
                 <td colspan="4">
-                    {{ data.pedagogicalProcess.evaluation }}
+                    {{ data?.pedagogicalProcess?.evaluation || '' }}
                 </td>
             </tr>
             <tr>
@@ -127,7 +133,7 @@
                 </th>
             </tr>
             <tr>
-                <td colspan="5">{{ data.resources.join(", ") }}</td>
+                <td colspan="5">{{ data?.resources?.join(", ") || ''}}</td>
             </tr>
             <tr>
                 <th

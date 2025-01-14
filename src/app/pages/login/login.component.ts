@@ -55,7 +55,7 @@ export class LoginComponent {
         title: 'Exito',
       });
 
-      this.router.navigate(['/chat']);
+      this.router.navigate(['/index']);
     } catch (error) {
       console.log('🚀  ~ LoginComponent ~ doLogin ~ error:', error);
       this.spinnerService.hide();

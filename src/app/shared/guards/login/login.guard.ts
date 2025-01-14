@@ -10,7 +10,7 @@ export const loginGuard: CanActivateFn = async (route, state) => {
   try {
     const { data, error } = await authService.isLogin();
     if (data?.session) {
-      router.navigate(['/chat']);
+      router.navigate(['/index']);
       return false;
     }
     return true;

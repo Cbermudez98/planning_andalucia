@@ -1,27 +1,24 @@
-<div class="container mt-3">
-  <!-- Formulario de envío de mensajes -->
-  <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-    <div class="mb-3">
-      <div class="row">
-        <!-- Columna de los mensajes recibidos (a la izquierda) -->
-        <div class="col-md-8" style="min-height: 42rem;">
+<form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+  <div class="mb-3">
+    <div class="row">
+      <!-- Columna de los mensajes recibidos (a la izquierda) -->
+      <div class="col-md-8" style="min-height: 40rem;">
+        @if(chat.length) {
           <div
             class="messages-container"
             style="max-height: 42rem; overflow-y: auto;"
             #messagesContainer
           >
             <!-- Mostrar los mensajes recibidos -->
-             @for (message of messages; track $index) {
-              @if(!message.sended) {
-                <div class="row mb-2">
-                  <div class="col-12">
-                    <p class="text-start bg-light p-2 rounded">
-                      <span>ChatGPT: </span>
-                      <app-table [value]="message.message"></app-table>
-                    </p>
-                  </div>
-                </div>
-              }
+             @for (message of chat; track $index) {
+               <div class="row mb-2">
+                 <div class="col-12">
+                   <p class="text-start bg-light p-2 rounded">
+                     <span>ChatGPT: </span>
+                     <app-table [value]="message.content"></app-table>
+                   </p>
+                 </div>
+               </div>
              }
 
             <!-- Spinner de carga -->
@@ -31,43 +28,43 @@
                </div>
              }
           </div>
-        </div>
+        }
+      </div>
 
-        <!-- Columna de la caja de texto (a la derecha) -->
-        <div class="col-md-4 d-flex flex-column justify-content-end">
-          <!-- Mensajes enviados por el usuario (a la derecha) -->
-           @for (message of messages; track $index) {
-            @if(message.sended) {
-              <div class="row mb-2" >
-                <div class="col-12">
-                  <p class="text-end bg-light p-2 rounded">
-                    <span>Ilian: </span>
-                    {{ message.message }}
-                  </p>
-                </div>
+      <!-- Columna de la caja de texto (a la derecha) -->
+      <div class="col-md-4 d-flex flex-column justify-content-end">
+        <!-- Mensajes enviados por el usuario (a la derecha) -->
+         @for (message of messages; track $index) {
+          @if(message.sended) {
+            <div class="row mb-2" >
+              <div class="col-12">
+                <p class="text-end bg-light p-2 rounded">
+                  <span>{{currentName}}: </span>
+                  {{ message.message }}
+                </p>
               </div>
-            }
-           }
+            </div>
+          }
+         }
 
-          <!-- Campo de texto y botón -->
-          <div class="input-group">
-            <textarea
-              class="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-              placeholder="Type a prompt"
-              formControlName="message"
-            ></textarea>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="chatForm.invalid"
-            >
-              Send
-            </button>
-          </div>
+        <!-- Campo de texto y botón -->
+        <div class="input-group">
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            placeholder="Type a prompt"
+            formControlName="message"
+          ></textarea>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="chatForm.invalid"
+          >
+            Send
+          </button>
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>

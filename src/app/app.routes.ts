@@ -3,17 +3,37 @@ import { authGuard, loginGuard } from './shared/shared';
 
 export const routes: Routes = [
   {
-    path: 'chat',
-    loadComponent: () =>
-      import('./pages/chat/chat.component').then((c) => c.ChatComponent),
-    canActivate: [authGuard],
-  },
-  {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.component').then((c) => c.LoginComponent),
 
     canActivate: [loginGuard],
+  },
+  {
+    path: 'index',
+    loadComponent: () =>
+      import('./pages/index/index.component').then((c) => c.IndexComponent),
+    children: [
+      {
+        path: 'chat/:id',
+        loadComponent: () =>
+          import('./pages/chat/chat.component').then((c) => c.ChatComponent),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'history',
+        loadComponent: () =>
+          import('./pages/history/history.component').then((c) => c.HistoryComponent),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'configuration',
+        loadComponent: () =>
+          import('./pages/config/config.component').then(
+            (c) => c.ConfigComponent
+          ),
+      },
+    ],
   },
   {
     path: '',

@@ -1,0 +1,68 @@
+.custom-navbar {
+  background-color: #ffffff; /* Fondo blanco */
+  border-bottom: 1px solid #ddd; /* Línea sutil debajo */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+  padding: 15px 30px;
+}
+
+.navbar-brand {
+  font-size: 20px; /* Tamaño más prominente */
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-brand:hover {
+  color: #007bff; /* Azul al pasar */
+}
+
+.navbar-toggler {
+  border: none; /* Sin borde para el botón hamburguesa */
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=UTF8,%3Csvg xmlns%3D%27http://www.w3.org/2000/svg%27 viewBox%3D%270 0 30 30%27%3E%3Cpath stroke%3D%27rgba%280,0,0,0.5%29%27 stroke-width%3D%272%27 stroke-linecap%3D%27round%27 stroke-miterlimit%3D%2710%27 d%3D%27M4 7h22M4 15h22M4 23h22%27/%3E%3C/svg%3E');
+}
+
+.navbar-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-right: 20px; /* Espaciado entre elementos */
+}
+
+.nav-link {
+  color: #333; /* Texto gris oscuro */
+  font-size: 16px;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #f4f4f4; /* Fondo gris claro al pasar */
+  color: #007bff; /* Azul */
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column; /* Apilado en pantallas pequeñas */
+    align-items: flex-start;
+  }
+
+  .nav-item {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .nav-link {
+    text-align: left;
+    width: 100%; /* Ocupa todo el ancho */
+  }
+}
