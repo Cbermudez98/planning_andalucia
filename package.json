@@ -1,12 +1,40 @@
 {
-  "name": "planeaciones-andalucia",
+  "name": "mis-planeaciones",
+  "productName": "mis-planeaciones",
+  "author": {
+    "name": "Cesar Bermudez",
+    "email": "cesar.bermudez.sierra@gmail.com",
+    "url": "https://github.com/Cbermudez98"
+  },
+  "description": "Mis planeaciones",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "electron-forge start",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:desktop": "rm -rf dist && npm run build && electron-builder --win --ia32",
+    "electron": "rm -rf dist && npm run build && electron ."
+  },
+  "build": {
+    "appId": "misPlaneaciones",
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "uninstallDisplayName": "MisPlaneaciones",
+      "license": "license.md",
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true
+    },
+    "directories": {
+      "output": "compiled"
+    }
   },
   "private": true,
   "dependencies": {
@@ -22,6 +50,7 @@
     "@supabase/supabase-js": "^2.47.8",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.11.3",
+    "electron-squirrel-startup": "^1.0.1",
     "ngx-spinner": "^17.0.0",
     "ngx-toastr": "^19.0.0",
     "openai": "^4.76.1",
@@ -36,6 +65,8 @@
     "@angular/cli": "^19.0.4",
     "@angular/compiler-cli": "^19.0.0",
     "@types/jasmine": "~5.1.0",
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
