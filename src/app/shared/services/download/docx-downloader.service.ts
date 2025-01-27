@@ -19,13 +19,7 @@ export class DocxDownloaderService {
       files.push(this.doGenerate(templateContent, obj));
     }
 
-    console.log(files);
-
     const mergedDoc = await this.mergeDocxFiles(files);
-    console.log(
-      '🚀  ~ DocxDownloaderService ~ generate ~ mergedDoc:',
-      mergedDoc
-    );
     saveAs(mergedDoc, 'output.docx'); // Save the merged document
   }
 
@@ -44,27 +38,14 @@ export class DocxDownloaderService {
       const buffers = await Promise.all(
         files.map((file) => file.arrayBuffer())
       );
-      console.log(
-        '🚀  ~ DocxDownloaderService ~ mergeDocxFiles ~ buffers:',
-        buffers
-      );
 
-      // Initialize DocxMerger
       const docMerger = new DocxMerger();
-      console.log(
-        '🚀  ~ DocxDownloaderService ~ mergeDocxFiles ~ docMerger:',
-        docMerger
-      );
 
       // Generate the merged document
       await docMerger.merge(buffers); // Save as Blob
       const buffer = await docMerger.save() as Blob;
       return new Blob([buffer]);
     } catch (error) {
-      console.log(
-        '🚀  ~ DocxDownloaderService ~ mergeDocxFiles ~ error:',
-        error
-      );
       throw error;
     }
   }
