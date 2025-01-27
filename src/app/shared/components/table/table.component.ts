@@ -103,6 +103,11 @@ export class TableComponent {
     }
   }
 
+  public cancel() {
+    this.edit = false;
+    this.handleData(this.data as any);
+  }
+
   private handleData(data: IAiResponse) {
     this.code = new FormControl(data?.code || '');
     this.plan = new FormControl(data?.plan || '');

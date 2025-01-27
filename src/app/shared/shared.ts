@@ -15,6 +15,7 @@ export { StorageService } from './services/storage/storage.service';
 export { QueryService } from './services/query/query.service';
 export { ModalService } from './services/modal/modal.service';
 export { IConfirm, ConfirmService } from './services/confirm/confirm.service';
+export { DocxDownloaderService } from './services/download/docx-downloader.service';
 
 export { PrettyJsonPipe } from './pipes/pretty-json.pipe';
 

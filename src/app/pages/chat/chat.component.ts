@@ -7,11 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  DocxDownloaderService,
   OpenAiService,
   QueryService,
   TableComponent,
 } from '../../shared/shared';
-import { exampleLesson } from '../../interfaces/IAiResponse';
+import { exampleLesson, IAiResponse } from '../../interfaces/IAiResponse';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { TABLES } from '../../constants/tables';
 import { ActivatedRoute } from '@angular/router';
@@ -43,12 +44,14 @@ export class ChatComponent implements OnInit {
   public subject: ISubject | null = null;
 
   @ViewChild('messagesContainer') private messagesContainer: any;
+  @ViewChild('messagesContainerChat') private messagesContainerChat: any;
 
   constructor(
     private readonly openApiService: OpenAiService,
     private readonly authService: AuthService,
     private readonly queryService: QueryService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly downloaderService: DocxDownloaderService
   ) {
     this.initForm();
     this.activatedRoute.params.subscribe((params) => {
@@ -88,6 +91,12 @@ export class ChatComponent implements OnInit {
         top: container.scrollHeight,
         behavior: 'smooth',
       });
+
+      const containerChat = this.messagesContainerChat.nativeElement;
+      containerChat.scrollTo({
+        top: containerChat.scrollHeight,
+        behavior: 'smooth',
+      });
     }, 100);
   }
 
@@ -99,9 +108,10 @@ export class ChatComponent implements OnInit {
         sended: true,
       };
       this.messages.push(message);
+      this.scrollToBottom();
       // `Dame una planeación basada en el contenido de \"${message.message}\", siguiendo el formato de \"${exampleLesson}\". Usa exampleLesson como plantilla para los campos y la estructura, pero adapta la información de acuerdo con el contenido de message.message. Los campos como el grado=${this.subjectToSend.value.grade}, área=${this.subjectToSend.value.name}, codigo=${this.subjectToSend.value.code} tienen estos valores y los campos como eje temático, competencias, motivación, observaciones, recursos y actividad deben ser generados en función del tema que el mensaje indique. Si el mensaje incluye una fecha especificada, utilízala. Si no incluye una fecha, usa la fecha de hoy en el formato dd de mes de yyyy (por ejemplo, 12 de diciembre de 2024). la planilla es siempre un numero, eje tematico es el mismo tema (Todo en espanol)`
       const messageReceived = await this.openApiService.sendRequest(
-        `Genera una planeación basada en el contenido de \"${message.message}\", siguiendo el formato de \"${exampleLesson}\". Usa exampleLesson como plantilla para los campos y estructura, pero adapta la información en función del tema indicado en message.message.
+        `Genera una planeación basada en el contenido de message={\"${message.message}\"}, siguiendo el formato de exampleLesson={\"${exampleLesson}\"}. Usa exampleLesson como plantilla para los campos y estructura, pero adapta la información en función del tema indicado en message.message.
         Campos a considerar:
         Grado: ${this.subjectToSend.value.grade}
         Área: ${this.subjectToSend.value.name}
@@ -112,7 +122,7 @@ export class ChatComponent implements OnInit {
         La planeación tenga un número único y consecutivo.
         El eje temático coincida exactamente con el tema del mensaje.
         Todos los campos estén completos y relevantes para el tema.
-        Devuelve el resultado exclusivamente en español.`
+        Devuelve el resultado exclusivamente en español. exampleLesson es para tener un referente y message para generar todo el contenido necesario`
       );
 
       const newHistory: IChatCreate = {
@@ -134,6 +144,37 @@ export class ChatComponent implements OnInit {
       this.scrollToBottom();
     } catch (error) {
       this.isProcessing = false;
+    }
+  }
+
+  public async download() {
+    try {
+      const chats: any[] = [];
+      for (let chat of this.chat) {
+        const data = JSON.parse(chat.content);
+        const keys = Object.keys(data);
+        let obj: any = {};
+        for (let key of keys) {
+          switch (true) {
+            case typeof data[key] === 'string':
+              obj[key] = data[key];
+              break;
+
+            case Array.isArray(data[key]):
+              obj[key] = data[key];
+              break;
+            default:
+              obj = { ...obj, ...data[key] };
+              break;
+          }
+        }
+        obj.resources = obj.resources.join(', ');
+        chats.push(obj);
+      }
+      console.log(chats);
+      await this.downloaderService.generate(chats);
+    } catch (error) {
+      console.log('🚀  ~ ChatComponent ~ download ~ error:', error);
     }
   }
 

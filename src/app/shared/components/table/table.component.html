@@ -211,9 +211,9 @@
                   }
               </tr>
               <tr>
-                  <th class="text-center" (dblclick)="setEdit()">ACTIVIDAD</th>
+                  <th class="text-center">ACTIVIDAD</th>
                   @if(!edit) {
-                    <td colspan="4">
+                    <td colspan="4" (dblclick)="setEdit()">
                         {{ data?.pedagogicalProcess?.activity || ''}}
                     </td>
                   } @else {
@@ -271,7 +271,14 @@
           </tbody>
       </table>
       @if(edit) {
-        <input type="submit" class="btn btn-outline-success" value="Actualizar">
+        <div class="row">
+          <div class="col-md-6">
+            <input type="button" class="btn btn-outline-danger" (click)="cancel()" value="Cancelar">
+          </div>
+          <div class="col-md-6">
+            <input type="submit" class="btn btn-outline-success" value="Actualizar">
+          </div>
+        </div>
       }
     </form>
 </div>
