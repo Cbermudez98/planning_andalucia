@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -14,31 +15,33 @@ import { exampleLesson } from '../../interfaces/IAiResponse';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { TABLES } from '../../constants/tables';
 import { ActivatedRoute } from '@angular/router';
-import { IChat, IChatCreate } from '../../interfaces/IChat';
-import { IHistory } from '../../interfaces/IHistory';
+import { IChatWithSubject, IChatCreate } from '../../interfaces/IChat';
+import { IHistory, IHistoryChats } from '../../interfaces/IHistory';
 import { ISubject } from '../../interfaces/ISubject';
 
 interface IMessage {
   sended: boolean;
   message: string;
-  timestamp: number;
 }
 
 @Component({
   selector: 'app-chat',
-  imports: [ReactiveFormsModule, TableComponent],
+  imports: [ReactiveFormsModule, TableComponent, FormsModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent implements AfterViewChecked, OnInit {
+export class ChatComponent implements OnInit {
   public isProcessing = false;
   public message!: FormControl;
+  public subjectToSend!: FormControl;
   public chatForm!: FormGroup;
   public messages: IMessage[] = [];
-  public chat: IChat[] = [];
+  public chat: IChatWithSubject[] = [];
   public currentName = '';
   private history_id: string = '';
-  private subjects!: ISubject | undefined;
+  public subjects: ISubject[] = [];
+  public subject: ISubject | null = null;
+
   @ViewChild('messagesContainer') private messagesContainer: any;
 
   constructor(
@@ -55,28 +58,37 @@ export class ChatComponent implements AfterViewChecked, OnInit {
 
   async ngOnInit(): Promise<void> {
     this.currentName = await this.authService.getCurrentName();
-    const response = await this.queryService.getInnerJoinWithWhere<IHistory>({
-      table: TABLES.HISTORY,
-      query:
-        'id, subjects(id, name, grade, code), chat (prompt, content, history_id, id)',
-      property: 'id',
-      value: this.history_id,
-    });
-    console.log(response);
-    this.subjects = response.at(0)?.subjects;
-    this.chat = response.at(0)?.chat || [];
-  }
-
-  ngAfterViewChecked() {
-    // Desplazar al fondo cuando se actualiza el contenedor de mensajes
+    const { data } = await this.authService.isLogin();
+    const response =
+      await this.queryService.getInnerJoinWithWhere<IHistoryChats>({
+        table: TABLES.HISTORY,
+        query:
+          'id, chats:chat(id, prompt, content, history_id, subject: subjects(id, name, grade, code, user_id))',
+        property: 'id',
+        value: this.history_id,
+      });
+    const chats = response.at(0);
+    this.messages =
+      chats?.chats.map((item) => ({
+        sended: true,
+        message: item.prompt,
+      })) || [];
+    this.subjects = await this.queryService.getAllByUserId<ISubject>(
+      TABLES.SUBJECT,
+      data.session?.user.id || ''
+    );
+    this.chat = response.at(0)?.chats || [];
     this.scrollToBottom();
   }
 
   scrollToBottom() {
-    try {
+    setTimeout(() => {
       const container = this.messagesContainer.nativeElement;
-      container.scrollTop = container.scrollHeight;
-    } catch (err) {}
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 100);
   }
 
   public async sendMessage() {
@@ -85,38 +97,52 @@ export class ChatComponent implements AfterViewChecked, OnInit {
       const message: IMessage = {
         message: this.message.value,
         sended: true,
-        timestamp: Date.now(),
       };
       this.messages.push(message);
-      this.chatForm.reset();
+      // `Dame una planeación basada en el contenido de \"${message.message}\", siguiendo el formato de \"${exampleLesson}\". Usa exampleLesson como plantilla para los campos y la estructura, pero adapta la información de acuerdo con el contenido de message.message. Los campos como el grado=${this.subjectToSend.value.grade}, área=${this.subjectToSend.value.name}, codigo=${this.subjectToSend.value.code} tienen estos valores y los campos como eje temático, competencias, motivación, observaciones, recursos y actividad deben ser generados en función del tema que el mensaje indique. Si el mensaje incluye una fecha especificada, utilízala. Si no incluye una fecha, usa la fecha de hoy en el formato dd de mes de yyyy (por ejemplo, 12 de diciembre de 2024). la planilla es siempre un numero, eje tematico es el mismo tema (Todo en espanol)`
       const messageReceived = await this.openApiService.sendRequest(
-        `Dame una planeación basada en el contenido de \"${message.message}\", siguiendo el formato de \"${exampleLesson}\". Usa exampleLesson como plantilla para los campos y la estructura, pero adapta la información de acuerdo con el contenido de message.message. Los campos como el grado=${this.subjects?.grade}, área=${this.subjects?.name}, codigo=${this.subjects?.code} tienen estos valores y los campos como eje temático, competencias, motivación, observaciones, recursos y actividad deben ser generados en función del tema que el mensaje indique. Si el mensaje incluye una fecha especificada, utilízala. Si no incluye una fecha, usa la fecha de hoy en el formato dd de mes de yyyy (por ejemplo, 12 de diciembre de 2024). la planilla es siempre un numero, eje tematico es el mismo tema (Todo en espanol)`
+        `Genera una planeación basada en el contenido de \"${message.message}\", siguiendo el formato de \"${exampleLesson}\". Usa exampleLesson como plantilla para los campos y estructura, pero adapta la información en función del tema indicado en message.message.
+        Campos a considerar:
+        Grado: ${this.subjectToSend.value.grade}
+        Área: ${this.subjectToSend.value.name}
+        Código: ${this.subjectToSend.value.code}
+        Los campos eje temático, competencias, motivación, observaciones, recursos y actividad deben generarse de manera contextualizada según el tema proporcionado.
+        Si el mensaje incluye una fecha específica, utilízala. Si no, usa la fecha actual en el formato: dd de mes de yyyy (por ejemplo, 12 de diciembre de 2024).
+        Asegúrate de que:
+        La planeación tenga un número único y consecutivo.
+        El eje temático coincida exactamente con el tema del mensaje.
+        Todos los campos estén completos y relevantes para el tema.
+        Devuelve el resultado exclusivamente en español.`
       );
 
       const newHistory: IChatCreate = {
         prompt: message.message,
-        content: JSON.stringify(messageReceived),
+        content: messageReceived,
         history_id: this.history_id,
+        subject_id: this.subjectToSend.value.id,
       };
 
-      await this.queryService.insert(TABLES.CHAT, newHistory);
+      const resp = await this.queryService.insert(TABLES.CHAT, newHistory);
       const chatGptMessage: IMessage = {
         message: messageReceived,
         sended: false,
-        timestamp: Date.now(),
       };
       this.messages.push(chatGptMessage);
+      this.chatForm.reset();
+      await this.ngOnInit();
       this.isProcessing = false;
+      this.scrollToBottom();
     } catch (error) {
-      console.log(error);
       this.isProcessing = false;
     }
   }
 
   private initForm(): void {
     this.message = new FormControl('', [Validators.required]);
+    this.subjectToSend = new FormControl(null, [Validators.required]);
     this.chatForm = new FormGroup({
       message: this.message,
+      subjectToSend: this.subjectToSend,
     });
   }
 }

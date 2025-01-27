@@ -28,13 +28,12 @@ export class RenderTableComponent {
     headers: [],
   };
   @Input() set data(data: Array<Record<string, any>>) {
-    console.log(data);
     this.dataToRender = data;
   }
 
   public dataToRender: Array<Record<string, any>> = [];
 
   private getHeaders(content: IHeaderTable) {
-    
+
   }
 }

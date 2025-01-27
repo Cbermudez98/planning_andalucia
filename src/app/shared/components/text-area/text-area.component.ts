@@ -1,18 +1,15 @@
-import { JsonPipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ValidationErrors } from '@angular/forms';
 
-type InputType = 'text' | 'password' | 'tel' | 'email' | 'tel' | 'number';
-
 @Component({
-  selector: 'app-input',
+  selector: 'app-text-area',
   imports: [TitleCasePipe],
-  templateUrl: './input.component.html',
-  styleUrl: './input.component.scss',
+  templateUrl: './text-area.component.html',
+  styleUrl: './text-area.component.scss',
 })
-export class InputComponent {
+export class TextAreaComponent {
   @Input({ required: true }) label: string = '';
-  @Input() type: InputType = 'text';
   @Input() control: FormControl = new FormControl();
   public error = '';
   public isPasswordVisible: boolean = false;

@@ -47,7 +47,6 @@ export class LoginComponent {
       this.spinnerService.show();
       const credentials: IUserLogin = this.loginForm.value;
       const response = await this.authService.login(credentials);
-      console.log('🚀  ~ LoginComponent ~ doLogin ~ response:', response);
       this.spinnerService.hide();
       this.toastService.show({
         type: TOAST.INFO,
@@ -57,7 +56,6 @@ export class LoginComponent {
 
       this.router.navigate(['/index']);
     } catch (error) {
-      console.log('🚀  ~ LoginComponent ~ doLogin ~ error:', error);
       this.spinnerService.hide();
       this.toastService.show({
         type: TOAST.ERROR,

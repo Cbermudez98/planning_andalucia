@@ -3,149 +3,275 @@
     <h4 class="text-center mb-4">PLANEACIONES DE CLASE</h4>
 
     <!-- Tabla Principal -->
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th
-                    colspan="2"
+    <form [formGroup]="formTable" (ngSubmit)="update()">
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                @if(!edit) {
+                  <th
+                      colspan="2"
+                      class="text-center"
+                      (dblclick)="setEdit()"
+                  >
+                      {{ 'CÓDIGO: '+ data?.code }}
+                  </th>
+                } @else {
+                  <th
+                  colspan="2"
+                  class="text-center"
+              >
+                  <app-input label="CODIGO" [control]="code"></app-input>
+              </th>
+                }
+                @if(!edit) {
+                  <th
+                    colspan="4"
                     class="text-center"
-                >
-                    {{ 'CÓDIGO: '+ data.code }}
-                </th>
-                <th
-                    colspan="2"
-                    class="text-center"
-                >
-                    {{'PLANILLA:' + data.plan}}
-                </th>
-                <th
-                    colspan="2"
-                    class="text-center"
-                >
+                    (dblclick)="setEdit()"
+                  >
+                      {{'PLANILLA:' + data?.plan }}
+                  </th>
+                } @else {
+                  <th
+                  colspan="4"
+                  class="text-center"
+              >
+              <app-input label="PLANILLA" [control]="plan"></app-input>
+              </th>
+                }
 
-                </th>
-            </tr>
-            <tr>
-                <th class="text-center">FECHA</th>
-                <th class="text-center">UNIDAD</th>
-                <th class="text-center">GRADO</th>
-                <th class="text-center">ÁREA</th>
-                <th class="text-center">EJE TEMÁTICO</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-center">{{ data.date }}</td>
-                <td class="text-center">{{ data.unit }}</td>
-                <td class="text-center">{{ data.grade + "°" }}</td>
-                <td class="text-center">{{ data.area }}</td>
-                <td class="text-center">{{ data.thematicAxis }}</td>
-            </tr>
-            <tr>
-                <th class="text-center">TIEMPO PROBABLE</th>
-                <th class="text-center">TIEMPO REAL</th>
-                <td class="text-center">60 min</td>
-                <td class="text-center">55 min</td>
-            </tr>
-            <tr>
-                <td
-                    colspan="2"
-                    class="text-center"
-                >
-                    LOGRO:
-                </td>
-                <td colspan="3">{{ data.achievement }}</td>
-            </tr>
-            <tr>
-                <td
-                    colspan="2"
-                    class="text-center"
-                >
-                    COMPETENCIAS:
-                </td>
-                <td colspan="3"></td>
-            </tr>
-            <tr>
-                <td class="text-center">Argumentativa:</td>
-                <td colspan="3">{{ data?.competencies?.argumentative || '' }}</td>
-            </tr>
-            <tr>
-                <td class="text-center">Interpretativa:</td>
-                <td colspan="3">{{ data?.competencies?.interpretative || ''}}</td>
-            </tr>
-            <tr>
-                <td class="text-center">Propositiva:</td>
-                <td colspan="3">{{ data?.competencies?.propositional || '' }}</td>
-            </tr>
-            <tr>
-                <th
-                    colspan="5"
-                    class="text-center"
-                >
-                    AJUSTES COMPLEMENTARIOS POR NECESIDADES PARTICULARES
-                </th>
-            </tr>
-            <tr>
-                <td colspan="5"></td>
-            </tr>
-            <tr>
-                <th
-                    colspan="5"
-                    class="text-center"
-                >
-                    PROCESO PEDAGÓGICO
-                </th>
-            </tr>
-            <tr>
-                <th class="text-center">MOTIVACIÓN</th>
-                <td colspan="4">
-                    {{ data?.pedagogicalProcess?.motivation || '' }}
-                </td>
-            </tr>
-            <tr>
-                <th class="text-center">EXPLORACIÓN SABERES PREVIOS</th>
-                <td colspan="4">
-                    {{ data?.pedagogicalProcess?.priorKnowledgeExploration || '' }}
-                </td>
-            </tr>
-            <tr>
-                <th class="text-center">CONFRONTACIÓN</th>
-                <td colspan="4">
-                    {{ data?.pedagogicalProcess?.confrontation || '' }}
-                </td>
-            </tr>
-            <tr>
-                <th class="text-center">ACTIVIDAD</th>
-                <td colspan="4">{{ data?.pedagogicalProcess?.activity || ''}}</td>
-            </tr>
-            <tr>
-                <th class="text-center">EVALUACIÓN</th>
-                <td colspan="4">
-                    {{ data?.pedagogicalProcess?.evaluation || '' }}
-                </td>
-            </tr>
-            <tr>
-                <th
-                    colspan="5"
-                    class="text-center"
-                >
-                    RECURSOS
-                </th>
-            </tr>
-            <tr>
-                <td colspan="5">{{ data?.resources?.join(", ") || ''}}</td>
-            </tr>
-            <tr>
-                <th
-                    colspan="5"
-                    class="text-center"
-                >
-                    OBSERVACIONES
-                </th>
-            </tr>
-            <tr>
-                <td colspan="5">{{ data.observations }}</td>
-            </tr>
-        </tbody>
-    </table>
+                  <!-- <th
+                      colspan="2"
+                      class="text-center"
+                  >
+                  </th> -->
+              </tr>
+              <tr>
+                  <th class="text-center">FECHA</th>
+                  <th class="text-center">UNIDAD</th>
+                  <th class="text-center">GRADO</th>
+                  <th class="text-center">ÁREA</th>
+                  <th class="text-center">EJE TEMÁTICO</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  @if(!edit) {
+                    <td (dblclick)="setEdit()" class="text-center">{{ data?.date }}</td>
+                  } @else {
+                    <td class="text-center">
+                      <app-input label="" [control]="date"></app-input>
+                    </td>
+                  }
+                  @if(!edit) {
+                    <td class="text-center" (dblclick)="setEdit()">{{ data?.unit }}</td>
+                  } @else {
+                    <td class="text-center">
+                      <app-input label="" [control]="unit"></app-input>
+                    </td>
+                  }
+                  @if(!edit) {
+                    <td class="text-center" (dblclick)="setEdit()">{{ data?.grade + "°" }}</td>
+                  } @else {
+                    <td class="text-center">
+                      <app-input label="" [control]="grade"></app-input>
+                    </td>
+                  }
+                  @if(!edit) {
+                    <td class="text-center" (dblclick)="setEdit()">{{ data?.area }}</td>
+                  } @else {
+                    <td class="text-center">
+                      <app-input label="" [control]="area"></app-input>
+                    </td>
+                  }
+                  @if(!edit) {
+                    <td class="text-center" (dblclick)="setEdit()">{{ data?.thematicAxis }}</td>
+                  } @else {
+                    <td class="text-center">
+                      <app-input label="" [control]="thematicAxis"></app-input>
+                    </td>
+                  }
+              </tr>
+              <tr>
+                  <th class="text-center">TIEMPO PROBABLE</th>
+                  <th class="text-center">TIEMPO REAL</th>
+                  <td class="text-center">60 min</td>
+                  <td class="text-center">55 min</td>
+              </tr>
+              <tr>
+                  <td
+                      colspan="2"
+                      class="text-center"
+                  >
+                      LOGRO:
+                  </td>
+                  @if(!edit) {
+                    <td colspan="3" (dblclick)="setEdit()">{{ data?.achievement }}</td>
+                  } @else {
+                    <td colspan="3">
+                      <app-text-area label="" [control]="achievement"></app-text-area>
+                    </td>
+                  }
+              </tr>
+              <tr>
+                  <td
+                      colspan="10"
+                      class="text-center"
+                  >
+                      COMPETENCIAS
+                  </td>
+                  <!-- <td colspan="3"></td> -->
+              </tr>
+              <tr>
+                  <td class="text-center">Argumentativa:</td>
+                  @if(!edit) {
+                    <td colspan="7" (dblclick)="setEdit()">
+                        {{ data?.competencies?.argumentative || '' }}
+                    </td>
+                  } @else {
+                    <td colspan="7">
+                      <app-text-area label="" [control]="argumentative"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <td class="text-center">Interpretativa:</td>
+                  @if(!edit) {
+                    <td colspan="7" (dblclick)="setEdit()">
+                        {{ data?.competencies?.interpretative || ''}}
+                    </td>
+                  } @else {
+                    <td colspan="7" (dblclick)="setEdit()">
+                      <app-text-area label="" [control]="interpretative"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <td class="text-center">Propositiva:</td>
+                  @if(!edit) {
+                    <td colspan="7" (dblclick)="setEdit()">
+                        {{ data?.competencies?.propositional || '' }}
+                    </td>
+                  } @else {
+                    <td colspan="7" (dblclick)="setEdit()">
+                      <app-text-area label="" [control]="propositional"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <th
+                      colspan="5"
+                      class="text-center"
+                  >
+                      AJUSTES COMPLEMENTARIOS POR NECESIDADES PARTICULARES
+                  </th>
+              </tr>
+              <tr>
+                  <th
+                      colspan="5"
+                      class="text-center"
+                  >
+                      PROCESO PEDAGÓGICO
+                  </th>
+              </tr>
+              <tr>
+                  <th class="text-center">MOTIVACIÓN</th>
+                  @if(!edit) {
+                    <td colspan="4" (dblclick)="setEdit()">
+                        {{ data?.pedagogicalProcess?.motivation || '' }}
+                    </td>
+                  } @else {
+                    <td colspan="4" >
+                      <app-text-area label="" [control]="motivation"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <th class="text-center">EXPLORACIÓN SABERES PREVIOS</th>
+                  @if(!edit) {
+                    <td colspan="4" (dblclick)="setEdit()">
+                        {{ data?.pedagogicalProcess?.priorKnowledgeExploration || '' }}
+                    </td>
+                  } @else {
+                    <td colspan="4" >
+                      <app-text-area label="" [control]="priorKnowledgeExploration"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <th class="text-center">CONFRONTACIÓN</th>
+                  @if(!edit) {
+                    <td colspan="4" (dblclick)="setEdit()">
+                        {{ data?.pedagogicalProcess?.confrontation || '' }}
+                    </td>
+                  } @else {
+                    <td colspan="4">
+                      <app-text-area label="" [control]="confrontation"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <th class="text-center" (dblclick)="setEdit()">ACTIVIDAD</th>
+                  @if(!edit) {
+                    <td colspan="4">
+                        {{ data?.pedagogicalProcess?.activity || ''}}
+                    </td>
+                  } @else {
+                    <td colspan="4">
+                      <app-text-area label="" [control]="activity"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <th class="text-center">EVALUACIÓN</th>
+                  @if(!edit) {
+                    <td colspan="4" (dblclick)="setEdit()">
+                        {{ data?.pedagogicalProcess?.evaluation || '' }}
+                    </td>
+                  } @else {
+                    <td colspan="4" (dblclick)="setEdit()">
+                      <app-text-area label="" [control]="evaluation"></app-text-area>
+                  </td>
+                  }
+              </tr>
+              <tr>
+                  <th
+                      colspan="5"
+                      class="text-center"
+                  >
+                      RECURSOS
+                  </th>
+              </tr>
+              <tr>
+                @if(!edit) {
+                  <td colspan="5" (dblclick)="setEdit()">{{ data?.resources?.join(", ") || ''}}</td>
+                } @else {
+                  <td colspan="5">
+                    <app-text-area label="" [control]="resources"></app-text-area>
+                  </td>
+                }
+              </tr>
+              <tr>
+                  <th
+                      colspan="5"
+                      class="text-center"
+                  >
+                      OBSERVACIONES
+                  </th>
+              </tr>
+              <tr>
+                @if(!edit) {
+                  <td colspan="5" (dblclick)="setEdit()">{{ data?.observations }}</td>
+                } @else {
+                  <td colspan="5">
+                    <app-text-area label="" [control]="observations"></app-text-area>
+                  </td>
+                }
+              </tr>
+          </tbody>
+      </table>
+      @if(edit) {
+        <input type="submit" class="btn btn-outline-success" value="Actualizar">
+      }
+    </form>
 </div>

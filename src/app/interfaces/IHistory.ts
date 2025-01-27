@@ -1,8 +1,15 @@
-import { IChat } from './IChat';
+import { IChat, IChatWithSubject } from './IChat';
 import { ISubject } from './ISubject';
 
 export interface IHistory {
   id: string;
-  subjects: ISubject;
-  chat: IChat[]
+  user_id: string;
+  week: string;
+  created_at: string;
+}
+
+
+export interface IHistoryChats {
+  id: string;
+  chats: IChatWithSubject[]
 }

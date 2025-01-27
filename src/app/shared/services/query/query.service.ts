@@ -12,10 +12,8 @@ export class QueryService {
 
   async insert<T>(table: string, data: T): Promise<any> {
     try {
-      console.log(table, data);
-      return (
-        await this.supabaseClient.from(table).insert(data).select()
-      ).data?.at(0);
+      const resp = await this.supabaseClient.from(table).insert(data).select();
+      return resp.data?.at(0);
     } catch (error) {
       throw error;
     }
@@ -32,7 +30,6 @@ export class QueryService {
         .from(query.table)
         .update(query.data)
         .eq(query.column, query.value);
-      console.log(response.error?.message);
     } catch (error) {
       throw error;
     }
@@ -46,7 +43,6 @@ export class QueryService {
         .eq('user_id', user_id);
       return response.data as T[];
     } catch (error) {
-      console.log('🚀  ~ QueryService ~ error:', error);
       throw error;
     }
   }
@@ -69,15 +65,12 @@ export class QueryService {
   }
 
   async deleteById(data: { table: string; id: string }) {
-    console.log('🚀  ~ QueryService ~ deleteById ~ data:', data);
     try {
       const response = await this.supabaseClient
         .from(data.table)
         .delete()
         .eq('id', data.id);
-      console.log('🚀  ~ QueryService ~ deleteById ~ response:', response);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
@@ -120,7 +113,6 @@ export class QueryService {
         .from(data.table)
         .select(data.query)
         .eq(data.property, data.value);
-      console.log(response);
       return response.data as T[];
     } catch (error) {
       throw error;

@@ -15,7 +15,7 @@
                  <div class="col-12">
                    <p class="text-start bg-light p-2 rounded">
                      <span>ChatGPT: </span>
-                     <app-table [value]="message.content"></app-table>
+                     <app-table [id]="message.id" [value]="message.content"></app-table>
                    </p>
                  </div>
                </div>
@@ -48,22 +48,35 @@
          }
 
         <!-- Campo de texto y botón -->
-        <div class="input-group">
-          <textarea
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            placeholder="Type a prompt"
-            formControlName="message"
-          ></textarea>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="chatForm.invalid"
-          >
-            Send
-          </button>
-        </div>
+         <div class="row">
+          <div class="col-md-12">
+            <select class="form-select" formControlName="subjectToSend">
+              @for (item of subjects; track $index) {
+                <option [ngValue]="item">{{ item.name }} - {{ item.grade }} - {{ item.code }}</option>
+              }
+            </select>
+          </div>
+         </div>
+         <div class="row">
+          <div class="md-12">
+            <div class="input-group">
+              <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                placeholder="Type a prompt"
+                formControlName="message"
+              ></textarea>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="chatForm.invalid"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+         </div>
       </div>
     </div>
   </div>

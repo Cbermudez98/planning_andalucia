@@ -8,9 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
-  @Input() name: string = '';
-  @Input() code: string = '';
-  @Input() grade: string = '';
+  @Input() week: string = '';
   @Input() id: string = '';
 
   constructor(private readonly router: Router) {}

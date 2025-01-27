@@ -6,6 +6,8 @@ export {
   ITableContent,
 } from './components/render-table/render-table.component';
 export { CardComponent } from './components/card/card.component';
+export { TextAreaComponent } from './components/text-area/text-area.component';
+
 export { OpenAiService } from './services/open-ai.service';
 export { SpinnerService } from './services/spinner/spinner.service';
 export { TOAST, ToastService } from './services/toast/toast.service';

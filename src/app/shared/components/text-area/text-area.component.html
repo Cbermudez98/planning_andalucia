@@ -1,0 +1,24 @@
+<label
+    [for]="label"
+    class="form-label"
+>
+    {{ label | titlecase }}
+</label>
+<div class="input-group">
+  <textarea
+      class="form-control"
+      [id]="label"
+      [name]="label"
+      (keyup)="setData($event)"
+      [value]="control.value"
+      autocomplete="off"
+  ></textarea>
+</div>
+
+@if(error) {
+  <div
+      class="text-danger mt-2"
+  >
+  <small>{{ error }}</small>
+  </div>
+}

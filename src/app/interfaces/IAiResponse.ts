@@ -29,43 +29,47 @@ export interface IAiResponse {
 }
 
 export const exampleLesson = JSON.stringify({
-  code: '',
+  code: '001', // Código único para identificar la planeación
   plan: '001', // Número de planilla agregado
-  date: '', // Fecha de la planeación
-  unit: '', // Unidad
-  grade: '', // Grado
-  area: '', // Área de la clase
-  thematicAxis: '', // Eje temático
-  estimatedTime: '', // Tiempo estimado
-  actualTime: '', // Tiempo real
+  date: '26 de enero de 2025', // Fecha de la planeación
+  unit: 'Unidad 1: Introducción al color', // Nombre de la unidad
+  grade: '3', // Grado escolar (3° grado en este caso)
+  area: 'Artística', // Área temática de la clase
+  thematicAxis: 'Los colores primarios y secundarios', // Eje temático o tema principal
+  estimatedTime: '2 horas', // Tiempo estimado de la clase
+  actualTime: '1 hora 45 minutos', // Tiempo real invertido en la clase
   achievement:
-    '',
+    'Identificar y combinar colores primarios para obtener colores secundarios.', // Logro esperado al finalizar la clase
   competencies: {
-    argumentative: '',
-    interpretative: '',
-    propositional: '',
+    argumentative:
+      'Explicar cómo se forman los colores secundarios a partir de los primarios.',
+    interpretative: 'Reconocer los colores primarios en objetos cotidianos.',
+    propositional:
+      'Proponer combinaciones de colores para proyectos artísticos.',
   },
   complementaryAdjustments:
-    '',
+    'Brindar atención individual a estudiantes con dificultades para distinguir colores.', // Ajustes adicionales necesarios
   pedagogicalProcess: {
     motivation:
-      '',
+      'Mostrar imágenes de obras de arte famosas que utilicen colores primarios y secundarios para captar la atención de los estudiantes.', // Cómo motivar a los estudiantes al inicio de la clase
     priorKnowledgeExploration:
-      '',
+      'Preguntar a los estudiantes si conocen los colores primarios y si saben cómo se combinan.', // Explorar conocimientos previos
     confrontation:
-      '',
+      'Realizar un experimento mezclando pinturas primarias para demostrar cómo se forman los colores secundarios.', // Actividad para confrontar conocimientos
     activity:
-      '',
+      'Los estudiantes mezclarán pinturas en sus cuadernos de trabajo para crear diferentes combinaciones de colores secundarios y realizarán un dibujo utilizando estas mezclas.', // Actividad principal de la clase
     evaluation:
-      '',
+      'Observar y evaluar los trabajos de los estudiantes, verificando si lograron identificar y combinar correctamente los colores.', // Método de evaluación
   },
   resources: [
     'Tablero',
     'Cuadernos',
-    'Lápices de colores',
-    'Marcadores',
-    'Material didáctico visual',
+    'Pinturas (rojo, azul, amarillo)',
+    'Pinceles',
+    'Vasos con agua',
+    'Papel para mezclar colores',
+    'Proyector para mostrar imágenes',
   ],
   observations:
-    'Asegúrese de que todos los estudiantes participen activamente en la clase y realice ajustes si es necesario.',
+    'Se recomienda reforzar el tema con estudiantes que no logren identificar los colores primarios o secundarios. Además, asegurarse de que todos tengan acceso a los materiales.', // Observaciones adicionales
 });

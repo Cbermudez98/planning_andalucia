@@ -71,7 +71,6 @@ export class RegisterComponent {
         title: 'Problema',
         message: 'Ha fallado el registro',
       });
-      console.log('🚀  ~ RegisterComponent ~ doLogin ~ error:', error);
     }
   }
 
