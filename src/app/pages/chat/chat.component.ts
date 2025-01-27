@@ -169,6 +169,7 @@ export class ChatComponent implements OnInit {
           }
         }
         obj.resources = obj.resources.join(', ');
+        obj.teacher = this.currentName;
         chats.push(obj);
       }
       console.log(chats);
