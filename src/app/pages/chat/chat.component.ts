@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,7 +10,11 @@ import {
   DocxDownloaderService,
   OpenAiService,
   QueryService,
+  SkeletonChatComponent,
+  SpinnerService,
   TableComponent,
+  TOAST,
+  ToastService,
 } from '../../shared/shared';
 import { exampleLesson, IAiResponse } from '../../interfaces/IAiResponse';
 import { AuthService } from '../../shared/services/auth/auth.service';
@@ -29,7 +33,13 @@ interface IMessage {
 
 @Component({
   selector: 'app-chat',
-  imports: [ReactiveFormsModule, TableComponent, FormsModule, DatePipe],
+  imports: [
+    ReactiveFormsModule,
+    TableComponent,
+    FormsModule,
+    DatePipe,
+    SkeletonChatComponent,
+  ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
@@ -54,7 +64,9 @@ export class ChatComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly queryService: QueryService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly downloaderService: DocxDownloaderService
+    private readonly downloaderService: DocxDownloaderService,
+    private readonly toastService: ToastService,
+    private readonly spinnerService: SpinnerService
   ) {
     this.initForm();
     this.activatedRoute.params.subscribe((params) => {
@@ -92,8 +104,10 @@ export class ChatComponent implements OnInit {
   scrollToBottom() {
     setTimeout(() => {
       const container = this.messagesContainer.nativeElement;
+      let top = container.scrollHeight;
+      if (this.isProcessing) top = top - 1200;
       container.scrollTo({
-        top: container.scrollHeight,
+        top,
         behavior: 'smooth',
       });
 
@@ -177,11 +191,17 @@ export class ChatComponent implements OnInit {
       this.scrollToBottom();
     } catch (error) {
       this.isProcessing = false;
+      this.toastService.show({
+        type: TOAST.ERROR,
+        message: 'Error al generar la respuesta de chat gpt',
+        title: 'ChatGpt',
+      });
     }
   }
 
   public async download() {
     try {
+      this.spinnerService.show();
       const chats: any[] = [];
       for (let chat of this.chat) {
         const data = JSON.parse(chat.content);
@@ -206,8 +226,14 @@ export class ChatComponent implements OnInit {
         chats.push(obj);
       }
       await this.downloaderService.generate(chats, `Semana ${this.week}`);
+      this.spinnerService.hide();
     } catch (error) {
-      console.log('🚀  ~ ChatComponent ~ download ~ error:', error);
+      this.toastService.show({
+        type: TOAST.ERROR,
+        message: 'Error al generar documento word',
+        title: 'Internal error',
+      });
+      this.spinnerService.hide();
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IAiResponse } from '../../../interfaces/IAiResponse';
 import { InputComponent } from '../input/input.component';
 import {
@@ -57,6 +57,7 @@ export class TableComponent {
     this.data = JSON.parse(data || '{}');
     this.handleData(this.data as any);
   }
+  @Output() updated = new EventEmitter<boolean>();
   constructor(
     private fb: FormBuilder,
     private readonly queryService: QueryService,
@@ -94,13 +95,14 @@ export class TableComponent {
         title: 'Exito',
         message: 'Contenido actualizado',
       });
+      this.updated.emit(true);
     } catch (error) {
       this.toastService.show({
         type: TOAST.ERROR,
         title: 'Error',
         message: 'No se pudo actualizar el chat',
       });
-      this.spinnerService.show();
+      this.spinnerService.hide();
     }
   }
 
@@ -141,8 +143,12 @@ export class TableComponent {
     this.confrontation = new FormControl(
       data?.pedagogicalProcess?.confrontation || ''
     );
-    this.activitySchool = new FormControl(data?.pedagogicalProcess?.activitySchool || '');
-    this.activityHouse = new FormControl(data?.pedagogicalProcess?.activityHouse || '');
+    this.activitySchool = new FormControl(
+      data?.pedagogicalProcess?.activitySchool || ''
+    );
+    this.activityHouse = new FormControl(
+      data?.pedagogicalProcess?.activityHouse || ''
+    );
     this.evaluation = new FormControl(
       data?.pedagogicalProcess?.evaluation || ''
     );

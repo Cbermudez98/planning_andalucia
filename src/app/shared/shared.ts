@@ -7,6 +7,7 @@ export {
 } from './components/render-table/render-table.component';
 export { CardComponent } from './components/card/card.component';
 export { TextAreaComponent } from './components/text-area/text-area.component';
+export { SkeletonChatComponent } from './components/skeleton-chat/skeleton-chat.component';
 
 export { OpenAiService } from './services/open-ai.service';
 export { SpinnerService } from './services/spinner/spinner.service';

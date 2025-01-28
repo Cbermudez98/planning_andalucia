@@ -5,7 +5,7 @@
     <!-- Tabla Principal -->
     <form [formGroup]="formTable" (ngSubmit)="update()">
       <table class="table table-bordered">
-          <thead>
+          <thead class="table-header">
               <tr>
                 @if(!edit) {
                   <th
@@ -54,7 +54,7 @@
                   <th class="text-center">EJE TEMÁTICO</th>
               </tr>
           </thead>
-          <tbody>
+          <tbody class="table-body">
               <tr>
                   @if(!edit) {
                     <td (dblclick)="setEdit()" class="text-center">{{ data?.date }}</td>
@@ -95,8 +95,8 @@
               <tr>
                   <th class="text-center">TIEMPO PROBABLE</th>
                   <th class="text-center">TIEMPO REAL</th>
-                  <td class="text-center">60 min</td>
-                  <td class="text-center">55 min</td>
+                  <td class="text-center" colspan="2">60 min</td>
+                  <td class="text-center" colspan="2">55 min</td>
               </tr>
               <tr>
                   <td
@@ -177,11 +177,11 @@
               <tr>
                   <th class="text-center">MOTIVACIÓN</th>
                   @if(!edit) {
-                    <td colspan="4" (dblclick)="setEdit()">
+                    <td colspan="5" (dblclick)="setEdit()">
                         {{ data?.pedagogicalProcess?.motivation || '' }}
                     </td>
                   } @else {
-                    <td colspan="4" >
+                    <td colspan="5" >
                       <app-text-area label="" [control]="motivation"></app-text-area>
                   </td>
                   }
@@ -189,11 +189,11 @@
               <tr>
                   <th class="text-center">EXPLORACIÓN SABERES PREVIOS</th>
                   @if(!edit) {
-                    <td colspan="4" (dblclick)="setEdit()">
+                    <td colspan="5" (dblclick)="setEdit()">
                         {{ data?.pedagogicalProcess?.priorKnowledgeExploration || '' }}
                     </td>
                   } @else {
-                    <td colspan="4" >
+                    <td colspan="5" >
                       <app-text-area label="" [control]="priorKnowledgeExploration"></app-text-area>
                   </td>
                   }
@@ -201,11 +201,11 @@
               <tr>
                   <th class="text-center">CONFRONTACIÓN</th>
                   @if(!edit) {
-                    <td colspan="4" (dblclick)="setEdit()">
+                    <td colspan="5" (dblclick)="setEdit()">
                         {{ data?.pedagogicalProcess?.confrontation || '' }}
                     </td>
                   } @else {
-                    <td colspan="4">
+                    <td colspan="5">
                       <app-text-area label="" [control]="confrontation"></app-text-area>
                   </td>
                   }
@@ -213,12 +213,12 @@
               <tr>
                   <th class="text-center">ACTIVIDAD</th>
                   @if(!edit) {
-                    <td colspan="4" (dblclick)="setEdit()">
+                    <td colspan="5" (dblclick)="setEdit()">
                         {{ data?.pedagogicalProcess?.activitySchool || ''}}
                         {{ data?.pedagogicalProcess?.activityHouse || ''}}
                     </td>
                   } @else {
-                    <td colspan="4">
+                    <td colspan="5">
                       <app-text-area label="" [control]="activitySchool"></app-text-area>
                       <app-text-area label="" [control]="activityHouse"></app-text-area>
                     </td>
@@ -227,11 +227,11 @@
               <tr>
                   <th class="text-center">EVALUACIÓN</th>
                   @if(!edit) {
-                    <td colspan="4" (dblclick)="setEdit()">
+                    <td colspan="5" (dblclick)="setEdit()">
                         {{ data?.pedagogicalProcess?.evaluation || '' }}
                     </td>
                   } @else {
-                    <td colspan="4" (dblclick)="setEdit()">
+                    <td colspan="5" (dblclick)="setEdit()">
                       <app-text-area label="" [control]="evaluation"></app-text-area>
                   </td>
                   }
