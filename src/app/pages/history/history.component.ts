@@ -65,7 +65,9 @@ export class HistoryComponent implements OnInit {
         property: 'week',
         value: this.week.value?.toString() || '',
       });
+      console.log("History encontrado",history);
       if (!history) {
+        console.log("Creando history")
         history = await this.queryService.insert<{
           week: string;
           user_id: string;

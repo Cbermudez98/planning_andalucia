@@ -214,12 +214,14 @@
                   <th class="text-center">ACTIVIDAD</th>
                   @if(!edit) {
                     <td colspan="4" (dblclick)="setEdit()">
-                        {{ data?.pedagogicalProcess?.activity || ''}}
+                        {{ data?.pedagogicalProcess?.activitySchool || ''}}
+                        {{ data?.pedagogicalProcess?.activityHouse || ''}}
                     </td>
                   } @else {
                     <td colspan="4">
-                      <app-text-area label="" [control]="activity"></app-text-area>
-                  </td>
+                      <app-text-area label="" [control]="activitySchool"></app-text-area>
+                      <app-text-area label="" [control]="activityHouse"></app-text-area>
+                    </td>
                   }
               </tr>
               <tr>

@@ -12,4 +12,5 @@ export interface IChatCreate extends Omit<IChat, 'id'> {}
 
 export interface IChatWithSubject extends Omit<IChat, 'subject_id'> {
   subject: ISubject;
+  created_at: string;
 }

@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './subjects.component.scss',
 })
 export class SubjectsComponent implements OnInit {
+  public grades: string[] = ['Pre+jardín', 'jardín', '1', '2', '3', '4', '5'];
   @Input() set subject(subject: ISubject) {
     if (!subject) return;
     this.subjectToUpdateId = subject.id;

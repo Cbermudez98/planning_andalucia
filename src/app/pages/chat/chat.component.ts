@@ -19,15 +19,17 @@ import { ActivatedRoute } from '@angular/router';
 import { IChatWithSubject, IChatCreate } from '../../interfaces/IChat';
 import { IHistory, IHistoryChats } from '../../interfaces/IHistory';
 import { ISubject } from '../../interfaces/ISubject';
+import { DatePipe } from '@angular/common';
 
 interface IMessage {
   sended: boolean;
   message: string;
+  created_at?: string;
 }
 
 @Component({
   selector: 'app-chat',
-  imports: [ReactiveFormsModule, TableComponent, FormsModule],
+  imports: [ReactiveFormsModule, TableComponent, FormsModule, DatePipe],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
@@ -39,6 +41,7 @@ export class ChatComponent implements OnInit {
   public messages: IMessage[] = [];
   public chat: IChatWithSubject[] = [];
   public currentName = '';
+  private week: string = '';
   private history_id: string = '';
   public subjects: ISubject[] = [];
   public subject: ISubject | null = null;
@@ -66,15 +69,17 @@ export class ChatComponent implements OnInit {
       await this.queryService.getInnerJoinWithWhere<IHistoryChats>({
         table: TABLES.HISTORY,
         query:
-          'id, chats:chat(id, prompt, content, history_id, subject: subjects(id, name, grade, code, user_id))',
+          'id, chats:chat(id, prompt, content, history_id, subject: subjects(id, name, grade, code, user_id), created_at), week',
         property: 'id',
         value: this.history_id,
       });
+    this.week = response.at(0)?.week || '';
     const chats = response.at(0);
     this.messages =
       chats?.chats.map((item) => ({
         sended: true,
         message: item.prompt,
+        created_at: item.created_at,
       })) || [];
     this.subjects = await this.queryService.getAllByUserId<ISubject>(
       TABLES.SUBJECT,
@@ -122,12 +127,40 @@ export class ChatComponent implements OnInit {
         La planeación tenga un número único y consecutivo.
         El eje temático coincida exactamente con el tema del mensaje.
         Todos los campos estén completos y relevantes para el tema.
-        Devuelve el resultado exclusivamente en español. exampleLesson es para tener un referente y message para generar todo el contenido necesario`
+        Devuelve el resultado exclusivamente en español. exampleLesson es para tener un referente y message para generar todo el contenido necesario.
+
+        Ademas ajusta la intensidad de la respuesta dependiendo el Grado: ${this.subjectToSend.value.grade}:
+        Pre+jardín- 3 años
+        jardín- 4 años
+        Transición -5/6años
+        1- 6/7 años
+        2- 7 años
+        3-8-9 años
+        4-9/10años
+        5-10/11 años`
       );
+
+      const data: IAiResponse = JSON.parse(messageReceived);
+      data.code = this.subjectToSend.value.code;
+      const id =
+        this.chat.filter(
+          (subject) => subject.subject.code === this.subjectToSend.value.code
+        ).length + 1;
+      data.plan = id + '';
+      data.observations = '';
+      data.unit = '1';
+      data.resources = [
+        'Tablero',
+        'Cuaderno',
+        'Lapices de colores',
+        'Marcadores',
+      ].concat(data.resources);
+
+      console.log(data);
 
       const newHistory: IChatCreate = {
         prompt: message.message,
-        content: messageReceived,
+        content: JSON.stringify(data),
         history_id: this.history_id,
         subject_id: this.subjectToSend.value.id,
       };
@@ -172,8 +205,7 @@ export class ChatComponent implements OnInit {
         obj.teacher = this.currentName;
         chats.push(obj);
       }
-      console.log(chats);
-      await this.downloaderService.generate(chats);
+      await this.downloaderService.generate(chats, `Semana ${this.week}`);
     } catch (error) {
       console.log('🚀  ~ ChatComponent ~ download ~ error:', error);
     }

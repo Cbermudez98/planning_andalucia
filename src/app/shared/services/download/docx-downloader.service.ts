@@ -12,7 +12,7 @@ import { environment } from '../../../../environments/environment.development';
 export class DocxDownloaderService {
   constructor() {}
 
-  async generate(data: any[]) {
+  async generate(data: any[], name: string) {
     const response = await fetch(environment.TEMPLATE.URL);
     const templateContent = await response.arrayBuffer();
     const files: Blob[] = [];
@@ -21,7 +21,7 @@ export class DocxDownloaderService {
     }
 
     const mergedDoc = await this.mergeDocxFiles(files);
-    saveAs(mergedDoc, 'output.docx'); // Save the merged document
+    saveAs(mergedDoc, name + '.docx'); // Save the merged document
   }
 
   private doGenerate(template: ArrayBuffer, data: any): Blob {

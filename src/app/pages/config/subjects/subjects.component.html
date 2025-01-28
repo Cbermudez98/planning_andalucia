@@ -12,10 +12,16 @@
                     ></app-input>
                 </div>
                 <div class="col-sm-6">
-                    <app-input
+                  <label for="">Grado</label>
+                  <select class="form-select" formControlName="grade">
+                    @for (item of grades; track $index) {
+                      <option [ngValue]="item">{{ item }}</option>
+                    }
+                  </select>
+                    <!-- <app-input
                         [control]="grade"
                         label="Grado"
-                    ></app-input>
+                    ></app-input> -->
                 </div>
             </div>
             <div class="row mt-3">

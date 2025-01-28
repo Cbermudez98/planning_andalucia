@@ -44,7 +44,8 @@ export class TableComponent {
   public motivation!: FormControl;
   public priorKnowledgeExploration!: FormControl;
   public confrontation!: FormControl;
-  public activity!: FormControl;
+  public activitySchool!: FormControl;
+  public activityHouse!: FormControl;
   public evaluation!: FormControl;
   public resources!: FormControl;
   public observations!: FormControl;
@@ -140,7 +141,8 @@ export class TableComponent {
     this.confrontation = new FormControl(
       data?.pedagogicalProcess?.confrontation || ''
     );
-    this.activity = new FormControl(data?.pedagogicalProcess?.activity || '');
+    this.activitySchool = new FormControl(data?.pedagogicalProcess?.activitySchool || '');
+    this.activityHouse = new FormControl(data?.pedagogicalProcess?.activityHouse || '');
     this.evaluation = new FormControl(
       data?.pedagogicalProcess?.evaluation || ''
     );
@@ -167,7 +169,8 @@ export class TableComponent {
         motivation: this.motivation,
         priorKnowledgeExploration: this.priorKnowledgeExploration,
         confrontation: this.confrontation,
-        activity: this.activity,
+        activityHouse: this.activityHouse,
+        activitySchool: this.activitySchool,
         evaluation: this.evaluation,
       }),
       resources: this.resources,

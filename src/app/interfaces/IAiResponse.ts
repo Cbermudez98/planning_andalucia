@@ -2,7 +2,8 @@ interface PedagogicalProcess {
   motivation: string;
   priorKnowledgeExploration: string;
   confrontation: string;
-  activity: string;
+  activitySchool: string;
+  activityHouse: string;
   evaluation: string;
 }
 
@@ -56,8 +57,10 @@ export const exampleLesson = JSON.stringify({
       'Preguntar a los estudiantes si conocen los colores primarios y si saben cómo se combinan.', // Explorar conocimientos previos
     confrontation:
       'Realizar un experimento mezclando pinturas primarias para demostrar cómo se forman los colores secundarios.', // Actividad para confrontar conocimientos
-    activity:
-      'Los estudiantes mezclarán pinturas en sus cuadernos de trabajo para crear diferentes combinaciones de colores secundarios y realizarán un dibujo utilizando estas mezclas.', // Actividad principal de la clase
+    activitySchool:
+      'En clase: Los estudiantes mezclarán pinturas en sus cuadernos de trabajo para crear diferentes combinaciones de colores secundarios y realizarán un dibujo utilizando estas mezclas.', // Actividad principal de la clase
+    activityHouse:
+      ' En casa: Los estudiantes realizaran actividades de colores secuntarios y dibujos',
     evaluation:
       'Observar y evaluar los trabajos de los estudiantes, verificando si lograron identificar y combinar correctamente los colores.', // Método de evaluación
   },

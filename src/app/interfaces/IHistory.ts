@@ -8,8 +8,8 @@ export interface IHistory {
   created_at: string;
 }
 
-
 export interface IHistoryChats {
   id: string;
-  chats: IChatWithSubject[]
+  chats: IChatWithSubject[];
+  week: string;
 }
