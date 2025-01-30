@@ -1,0 +1,36 @@
+name: Deploy to server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Adding node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy to gh pages
+        run: |
+          npx angular-cli-ghpages --dir=dist/planeaciones_andalucia/browser
+        env:
+          CI: true
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
+          NG_APP_OPEN_AI_PROJECT: ${{ secrets.NG_APP_OPEN_AI_PROJECT }}
+          NG_APP_OPEN_AI_MODEL: ${{ secrets.NG_APP_OPEN_AI_MODEL }}
+          NG_APP_OPEN_AI_ROLE: ${{ secrets.NG_APP_OPEN_AI_ROLE }}
+          NG_APP_SUPABASE_PROJECT_URL: ${{ secrets.NG_APP_SUPABASE_PROJECT_URL }}
+          NG_APP_SUPABASE_API_KEY: ${{ secrets.NG_APP_SUPABASE_API_KEY }}
+          NG_APP_TEMPLATE_URL: ${{ secrets.NG_APP_TEMPLATE_URL }}
