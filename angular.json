@@ -17,7 +17,7 @@
         "build": {
           "builder": "@ngx-env/builder:application",
           "options": {
-            "outputPath": "dist/planeaciones_andalucia",
+            "outputPath": "dist/planning_andalucia",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
