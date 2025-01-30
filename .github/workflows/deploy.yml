@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Deploy to GitHub Pages
-        run: npx ng deploy
+        run: npx ng deploy --dir=dist/planning_andalucia/browser
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
