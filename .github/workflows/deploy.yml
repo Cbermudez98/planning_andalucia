@@ -39,8 +39,7 @@ jobs:
         run: npm i angular-cli-ghpages@2.0.3
 
       - name: Deploy to gh pages
-        run: |
-          npx angular-cli-ghpages --dir=dist/planning_andalucia/browser
+        run: ng deploy --no-silent
         env:
           CI: true
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
