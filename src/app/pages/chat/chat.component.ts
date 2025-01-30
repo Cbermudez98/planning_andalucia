@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  ConfirmService,
   DocxDownloaderService,
   OpenAiService,
   QueryService,
@@ -66,7 +67,8 @@ export class ChatComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly downloaderService: DocxDownloaderService,
     private readonly toastService: ToastService,
-    private readonly spinnerService: SpinnerService
+    private readonly spinnerService: SpinnerService,
+    private readonly confirmService: ConfirmService
   ) {
     this.initForm();
     this.activatedRoute.params.subscribe((params) => {
@@ -92,6 +94,7 @@ export class ChatComponent implements OnInit {
         sended: true,
         message: item.prompt,
         created_at: item.created_at,
+        id: item.id,
       })) || [];
     this.subjects = await this.queryService.getAllByUserId<ISubject>(
       TABLES.SUBJECT,
@@ -101,7 +104,7 @@ export class ChatComponent implements OnInit {
     this.scrollToBottom();
   }
 
-  scrollToBottom() {
+  public scrollToBottom() {
     setTimeout(() => {
       const container = this.messagesContainer.nativeElement;
       let top = container.scrollHeight;
@@ -235,6 +238,30 @@ export class ChatComponent implements OnInit {
       });
       this.spinnerService.hide();
     }
+  }
+
+  public deleteChat(id: string) {
+    this.confirmService.show({
+      message: 'Seguro desea eliminar este chat?',
+      header: 'Advertencia',
+      accept: this.confirmDelete.bind(this),
+      reject: () => {},
+      data: id,
+    });
+  }
+
+  private async confirmDelete(id: string) {
+    console.log('🚀  ~ ChatComponent ~ confirmDelete ~ id:', id);
+    await this.queryService.deleteById({
+      table: TABLES.CHAT,
+      id,
+    });
+    this.toastService.show({
+      type: TOAST.SUCCESS,
+      title: 'Exito',
+      message: 'Eliminado satisfactoriamente',
+    });
+    this.chat = this.chat.filter((item) => item.id !== id);
   }
 
   private initForm(): void {

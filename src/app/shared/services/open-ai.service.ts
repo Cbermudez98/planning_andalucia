@@ -17,10 +17,10 @@ export class OpenAiService {
 
   async sendRequest(content: string) {
     const stream = await this._openAi.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: environment.OPEN_AI.MODEL,
       messages: [
         {
-          role: 'user',
+          role: environment.OPEN_AI.ROLE,
           content,
         },
       ],

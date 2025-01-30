@@ -8,6 +8,7 @@ interface PedagogicalProcess {
 }
 
 export interface IAiResponse {
+  id: string;
   code: string;
   plan: string;
   date: string;
