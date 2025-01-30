@@ -1,4 +1,4 @@
-name: Deploy to server
+name: Deploy to GitHub Pages (Private Repo)
 
 on:
   push:
@@ -13,18 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: Production
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # Important: Disable default GitHub token
 
-      - name: Adding node.js
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: Build Angular App
         run: npm run build -- --configuration=production --base-href=/planning_andalucia/
         env:
           NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
@@ -35,18 +37,16 @@ jobs:
           NG_APP_SUPABASE_API_KEY: ${{ secrets.NG_APP_SUPABASE_API_KEY }}
           NG_APP_TEMPLATE_URL: ${{ secrets.NG_APP_TEMPLATE_URL }}
 
-      - name: Install angular gh pages
+      - name: Install angular gh-pages
         run: npm i angular-cli-ghpages@2.0.3
 
-      - name: Configure Git User
+      - name: Configure Git User  # ✅ FIX: Set Git Identity
         run: |
-          git config --global user.email "cesar.bermudez.sierra@gmail.com"
-          git config --global user.name "Cesar Bermudez"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
-      - name: Deploy to gh pages
+      - name: Deploy to GitHub Pages
         run: |
-          npx angular-cli-ghpages --dir=dist/planning_andalucia/browser --no-silent
+          npx angular-cli-ghpages --dir=dist/planning_andalucia/browser --no-silent --repo=https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Cbermudez98/planning_andalucia.git --branch=gh-pages
         env:
           CI: true
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
