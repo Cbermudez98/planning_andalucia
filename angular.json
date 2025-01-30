@@ -115,7 +115,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://github.io/planning_andalucia/",
+            "baseHref": "https://github.io/planning_andalucia/browser",
             "repo": "https://github.com/Cbermudez98/planning_andalucia.git",
             "name": "Cesar Bermudez",
             "email": "cesar.bermudez.sierra@gmail.com"
