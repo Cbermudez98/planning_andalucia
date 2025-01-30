@@ -47,9 +47,8 @@ jobs:
 
       - name: Deploy to GitHub Pages (Private Repo)
         run: |
-          npx angular-cli-ghpages --dir=dist/planning_andalucia/browser --no-silent --repo=https://github.com/${{ github.repository }}.git
+          npx angular-cli-ghpages --dir=dist/planning_andalucia/browser --no-silent
         env:
           CI: true
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GIT_ASKPASS: echo 'echo $GH_TOKEN'
 
