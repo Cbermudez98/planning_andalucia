@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build -- --configuration:production
+        run: npm run build -- --configuration=production
         env:
           NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
           NG_APP_OPEN_AI_PROJECT: ${{ secrets.NG_APP_OPEN_AI_PROJECT }}
