@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install angular gh pages
+        run: npm i angular-cli-ghpages@2.0.3
+
       - name: Deploy to gh pages
         run: |
           npx angular-cli-ghpages --dir=dist/planeaciones_andalucia/browser
