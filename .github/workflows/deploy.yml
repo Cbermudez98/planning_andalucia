@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false  # Important: Disable default GitHub token
+          persist-credentials: false # Important: Disable default GitHub token
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Angular App
-        run: npm run build -- --configuration=production --base-href=/planning_andalucia/
+      - name: Deploy to GitHub Pages
+        run: npx ng deploy
         env:
           NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
           NG_APP_OPEN_AI_PROJECT: ${{ secrets.NG_APP_OPEN_AI_PROJECT }}
@@ -36,10 +36,3 @@ jobs:
           NG_APP_SUPABASE_PROJECT_URL: ${{ secrets.NG_APP_SUPABASE_PROJECT_URL }}
           NG_APP_SUPABASE_API_KEY: ${{ secrets.NG_APP_SUPABASE_API_KEY }}
           NG_APP_TEMPLATE_URL: ${{ secrets.NG_APP_TEMPLATE_URL }}
-
-      - name: Install angular gh-pages
-        run: npm i angular-cli-ghpages@2.0.3
-
-      - name: Deploy to GitHub Pages
-        run: ng deploy
-
