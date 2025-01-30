@@ -21,6 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build
+        run: npm run build -- --configuration:production
+        env:
+          NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
+          NG_APP_OPEN_AI_PROJECT: ${{ secrets.NG_APP_OPEN_AI_PROJECT }}
+          NG_APP_OPEN_AI_MODEL: ${{ secrets.NG_APP_OPEN_AI_MODEL }}
+          NG_APP_OPEN_AI_ROLE: ${{ secrets.NG_APP_OPEN_AI_ROLE }}
+          NG_APP_SUPABASE_PROJECT_URL: ${{ secrets.NG_APP_SUPABASE_PROJECT_URL }}
+          NG_APP_SUPABASE_API_KEY: ${{ secrets.NG_APP_SUPABASE_API_KEY }}
+          NG_APP_TEMPLATE_URL: ${{ secrets.NG_APP_TEMPLATE_URL }}
+
       - name: Install angular gh pages
         run: npm i angular-cli-ghpages@2.0.3
 
@@ -30,10 +41,3 @@ jobs:
         env:
           CI: true
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
-          NG_APP_OPEN_AI_PROJECT: ${{ secrets.NG_APP_OPEN_AI_PROJECT }}
-          NG_APP_OPEN_AI_MODEL: ${{ secrets.NG_APP_OPEN_AI_MODEL }}
-          NG_APP_OPEN_AI_ROLE: ${{ secrets.NG_APP_OPEN_AI_ROLE }}
-          NG_APP_SUPABASE_PROJECT_URL: ${{ secrets.NG_APP_SUPABASE_PROJECT_URL }}
-          NG_APP_SUPABASE_API_KEY: ${{ secrets.NG_APP_SUPABASE_API_KEY }}
-          NG_APP_TEMPLATE_URL: ${{ secrets.NG_APP_TEMPLATE_URL }}
