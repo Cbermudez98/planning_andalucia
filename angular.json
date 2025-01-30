@@ -111,6 +111,15 @@
             "scripts": [],
             "builderMode": "browser"
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://github.io/planning_andalucia/",
+            "repo": "https://github.com/Cbermudez98/planning_andalucia.git",
+            "name": "Cesar Bermudez",
+            "email": "cesar.bermudez.sierra@gmail.com"
+          }
         }
       }
     }
