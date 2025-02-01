@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 interface IRoute {
   name: string;
@@ -27,4 +28,10 @@ export class NavbarComponent {
       link: '/index/history',
     },
   ];
+
+  constructor(private readonly authService: AuthService) {}
+
+  public async logOut() {
+    this.authService.logOut();
+  }
 }
