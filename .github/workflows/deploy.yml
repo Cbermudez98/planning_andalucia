@@ -1,39 +1,31 @@
-name: Deploy to GitHub Pages (Private Repo)
-
+name: deploy
+run-name: deploy to production
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: Production
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false # Important: Disable default GitHub token
+      - name: checkout
+        uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Deploy to GitHub Pages
-        run: npx ng deploy --dir=dist/planning_andalucia/browser
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NG_APP_OPEN_AI_API_KEY: ${{ secrets.NG_APP_OPEN_AI_API_KEY }}
-          NG_APP_OPEN_AI_PROJECT: ${{ secrets.NG_APP_OPEN_AI_PROJECT }}
-          NG_APP_OPEN_AI_MODEL: ${{ secrets.NG_APP_OPEN_AI_MODEL }}
-          NG_APP_OPEN_AI_ROLE: ${{ secrets.NG_APP_OPEN_AI_ROLE }}
-          NG_APP_SUPABASE_PROJECT_URL: ${{ secrets.NG_APP_SUPABASE_PROJECT_URL }}
-          NG_APP_SUPABASE_API_KEY: ${{ secrets.NG_APP_SUPABASE_API_KEY }}
-          NG_APP_TEMPLATE_URL: ${{ secrets.NG_APP_TEMPLATE_URL }}
+      - name: Install railway
+        run: npm i -g @railway/cli
+
+      - name: Deploy
+        uses: bervProject/railway-deploy@main
+        with:
+          railway_token: ${{secrets.RAILWAY_TOKEN}}
+          service: ${{secrets.RAILWAY_SERVICE}}
+          detach: false

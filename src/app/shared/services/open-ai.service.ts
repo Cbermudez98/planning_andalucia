@@ -16,20 +16,26 @@ export class OpenAiService {
   constructor() {}
 
   async sendRequest(content: string) {
-    const stream = await this._openAi.chat.completions.create({
-      model: environment.OPEN_AI.MODEL,
-      messages: [
-        {
-          role: environment.OPEN_AI.ROLE,
-          content,
-        },
-      ],
-      stream: true,
-    });
-    let message = '';
-    for await (const chunk of stream) {
-      message += chunk.choices[0]?.delta?.content || '';
+    try {
+      console.log(environment);
+      const stream = await this._openAi.chat.completions.create({
+        model: environment.OPEN_AI.MODEL,
+        messages: [
+          {
+            role: environment.OPEN_AI.ROLE,
+            content,
+          },
+        ],
+        stream: true,
+      });
+      let message = '';
+      for await (const chunk of stream) {
+        message += chunk.choices[0]?.delta?.content || '';
+      }
+      return message;
+    } catch (error) {
+      console.log('🚀  ~ OpenAiService ~ sendRequest ~ error:', error);
+      throw error;
     }
-    return message;
   }
 }
