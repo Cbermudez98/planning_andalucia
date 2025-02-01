@@ -17,7 +17,6 @@ export class OpenAiService {
 
   async sendRequest(content: string) {
     try {
-      console.log(environment);
       const stream = await this._openAi.chat.completions.create({
         model: environment.OPEN_AI.MODEL,
         messages: [
