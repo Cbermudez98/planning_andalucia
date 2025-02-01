@@ -53,6 +53,7 @@
                 <div class="col-12">
                   <p class="text-end bg-light p-2 rounded">
                     <span>{{currentName}}: <br><small>{{ message.created_at | date: 'dd-MM-YYYY H:mm:ss' }}</small></span><br>
+                    <small>{{ message.subject }} - {{ message.grade }}</small><br>
                     {{ message.message }}
                   </p>
                 </div>
@@ -89,6 +90,7 @@
                 </button>
               </div>
               <input type="button" [disabled]="!chat.length" class="btn btn-outline-success btn-sm" (click)="download()" value="Descargar">
+              <input type="button" [disabled]="!chat.length" class="btn btn-outline-primary btn-sm mx-2" (click)="copy()" value="Copiar">
             </div>
            </div>
         </div>
