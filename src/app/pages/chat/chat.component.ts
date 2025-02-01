@@ -30,6 +30,9 @@ interface IMessage {
   sended: boolean;
   message: string;
   created_at?: string;
+  subject: string;
+  grade: string;
+  date: string;
 }
 
 @Component({
@@ -94,12 +97,16 @@ export class ChatComponent implements OnInit {
         sended: true,
         message: item.prompt,
         created_at: item.created_at,
+        date: JSON.parse(item.content).date,
         id: item.id,
+        subject: item.subject.name,
+        grade: item.subject.grade,
       })) || []
     ).sort(
       (a, b) =>
         new Date(a.created_at).valueOf() - new Date(b.created_at).valueOf()
     );
+    console.log(messages);
     this.messages = messages;
     this.subjects = await this.queryService.getAllByUserId<ISubject>(
       TABLES.SUBJECT,
@@ -135,15 +142,10 @@ export class ChatComponent implements OnInit {
   public async sendMessage() {
     try {
       this.isProcessing = true;
-      const message: IMessage = {
-        message: this.message.value,
-        sended: true,
-      };
-      this.messages.push(message);
       this.scrollToBottom();
       const messageReceived = await this.openApiService.sendRequest(
         this.getPrompt({
-          message: message.message,
+          message: this.message.value,
           grade: this.subjectToSend.value.grade,
           area: this.subjectToSend.value.name,
           code: this.subjectToSend.value.code,
@@ -151,6 +153,14 @@ export class ChatComponent implements OnInit {
       );
 
       const data: IAiResponse = JSON.parse(messageReceived);
+      const message: IMessage = {
+        message: this.message.value,
+        subject: this.subjectToSend.value.name,
+        grade: this.subjectToSend.value.grade,
+        date: data.date,
+        sended: true,
+      };
+      this.messages.push(message);
       data.code = this.subjectToSend.value.code;
       const id =
         this.chat.filter(
@@ -176,6 +186,9 @@ export class ChatComponent implements OnInit {
       const resp = await this.queryService.insert(TABLES.CHAT, newHistory);
       const chatGptMessage: IMessage = {
         message: messageReceived,
+        subject: this.subjectToSend.value.name,
+        grade: this.subjectToSend.value.grade,
+        date: data.date,
         sended: false,
       };
       this.messages.push(chatGptMessage);
@@ -229,6 +242,30 @@ export class ChatComponent implements OnInit {
       });
       this.spinnerService.hide();
     }
+  }
+
+  public copy() {
+    const map = this.messages.map((item) => ({
+      Materia: item.subject,
+      Fecha: item.date,
+      Grado: item.grade,
+      Tema: item.message,
+    }));
+    const headers = Object.keys(map[0]);
+
+    // Convert JSON to tab-separated values (TSV)
+    const formattedText = [
+      headers.join('\t'), // Header row
+      ...map.map((obj: any) => headers.map((key) => obj[key]).join('\t')),
+    ].join('\n');
+
+    navigator.clipboard.writeText(formattedText);
+
+    this.toastService.show({
+      type: TOAST.SHOW,
+      title: 'Exito',
+      message: 'Copiado con exito',
+    });
   }
 
   public deleteChat(id: string) {

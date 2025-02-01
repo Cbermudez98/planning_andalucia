@@ -15,6 +15,14 @@ export const routes: Routes = [
       import('./pages/index/index.component').then((c) => c.IndexComponent),
     children: [
       {
+        path: 'welcome',
+        loadComponent: () =>
+          import('./pages/welcome/welcome.component').then(
+            (c) => c.WelcomeComponent
+          ),
+        canActivate: [authGuard],
+      },
+      {
         path: 'chat/:id',
         loadComponent: () =>
           import('./pages/chat/chat.component').then((c) => c.ChatComponent),
@@ -23,7 +31,9 @@ export const routes: Routes = [
       {
         path: 'history',
         loadComponent: () =>
-          import('./pages/history/history.component').then((c) => c.HistoryComponent),
+          import('./pages/history/history.component').then(
+            (c) => c.HistoryComponent
+          ),
         canActivate: [authGuard],
       },
       {

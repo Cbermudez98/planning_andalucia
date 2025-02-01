@@ -17,7 +17,7 @@ export class NavbarComponent {
   public routes: IRoute[] = [
     {
       name: 'Home',
-      link: '/index',
+      link: '/index/welcome',
     },
     {
       name: 'Configuraciones',
