@@ -6,6 +6,7 @@ export interface IChat {
   content: string;
   history_id: string;
   subject_id: string;
+  created_at?: string;
 }
 
 export interface IChatCreate extends Omit<IChat, 'id'> {}

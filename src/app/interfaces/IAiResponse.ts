@@ -30,10 +30,18 @@ export interface IAiResponse {
   observations: string;
 }
 
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+};
+
 export const exampleLesson = JSON.stringify({
   code: '001', // Código único para identificar la planeación
   plan: '001', // Número de planilla agregado
-  date: '26 de enero de 2025', // Fecha de la planeación
+  date: formatDate(new Date()), // Fecha de la planeación
   unit: 'Unidad 1: Introducción al color', // Nombre de la unidad
   grade: '3', // Grado escolar (3° grado en este caso)
   area: 'Artística', // Área temática de la clase
