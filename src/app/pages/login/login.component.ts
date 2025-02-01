@@ -54,7 +54,7 @@ export class LoginComponent {
         title: 'Exito',
       });
 
-      this.router.navigate(['/index']);
+      this.router.navigate(['/index/welcome']);
     } catch (error) {
       this.spinnerService.hide();
       this.toastService.show({
