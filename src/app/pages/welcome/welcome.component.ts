@@ -34,7 +34,7 @@ export class WelcomeComponent implements OnInit {
       this.message = 'Buenas noches';
     }
     this.best = await this.openAiService.sendRequest(
-      'Dame un mensaje bonito, que diga que todo ira bien y por esas acciones que hago trabajo y puedo ver a mis seres queridos y a mi bien, agregale emoticones'
+      'Dame un mensaje bonito, que diga que todo ira bien y por esas acciones que hago trabajo y a mi bien, agregale emoticones, me gusta la cerveza bien fria, no lo digas tan directo la cerveza, incluye hastags'
     );
   }
 }
