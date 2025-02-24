@@ -118,4 +118,22 @@ export class QueryService {
       throw error;
     }
   }
+
+  async getDataEqualAndLike<T>(query: {
+    table: string;
+    grade: string;
+    like: string;
+  }): Promise<T> {
+    const { data, error } = await this.supabaseClient
+      .from(query.table)
+      .select('*')
+      .eq('grade', query.grade)
+      .ilike('name', `%${query.like}%`)
+      .limit(1);
+
+    if (error) {
+      throw error;
+    }
+    return data.at(0) as any;
+  }
 }

@@ -57,7 +57,9 @@ export class TableComponent {
     this.data = JSON.parse(data || '{}');
     this.handleData(this.data as any);
   }
+  @Input() isPreview = false;
   @Output() updated = new EventEmitter<boolean>();
+  @Output() updatedData = new EventEmitter<any>();
   constructor(
     private fb: FormBuilder,
     private readonly queryService: QueryService,
@@ -78,16 +80,27 @@ export class TableComponent {
       data.resources = this.resources.value
         .split(',')
         .map((item: string) => item.trim());
-      await this.queryService.update({
-        table: TABLES.CHAT,
-        column: 'id',
-        value: this.id,
-        data: {
-          content: JSON.stringify(data),
-        },
-      });
+      if (!this.isPreview) {
+        await this.queryService.update({
+          table: TABLES.CHAT,
+          column: 'id',
+          value: this.id,
+          data: {
+            content: JSON.stringify(data),
+          },
+        });
+      } else {
+      }
       this.spinnerService.hide();
       this.data = data;
+      console.log({
+        id: this.id,
+        data,
+      });
+      this.updatedData.emit({
+        id: this.id,
+        data,
+      });
       this.handleData(data);
       this.edit = false;
       this.toastService.show({

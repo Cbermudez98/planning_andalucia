@@ -14,6 +14,7 @@ import { definePreset } from '@primeng/themes';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { DialogService } from 'primeng/dynamicdialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     ConfirmationService,
-    MessageService
+    MessageService,
+    DialogService,
   ],
 };
