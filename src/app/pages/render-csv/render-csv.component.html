@@ -1,0 +1,28 @@
+<div class="container">
+  @for (message of response; track $index; let  i = $index) {
+    <div class="row mb-2">
+      <div class="col-12">
+        <p class="text-start bg-light p-2 rounded">
+          <!-- <input type="button" class="btn btn-outline-danger btn-sm" value="Eliminar"> -->
+          <app-table (updatedData)="update($event)" [isPreview]="true" [id]="i + ''" [value]="message"></app-table>
+        </p>
+      </div>
+    </div>
+  }
+  @if(response.length) {
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Semana</label>
+            <input formControlName="week" type="number" class="form-control" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <input [disabled]="form.invalid" type="submit" value="Guardar" class="btn btn-outline-success">
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>
